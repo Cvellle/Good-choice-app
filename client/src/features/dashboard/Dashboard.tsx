@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -58,7 +58,7 @@ export const Dashboard: React.FC = () => {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
-  const [dialogMessage, setDialogMessage] = useState("");
+  const [dialogMessage, setDialogMessage] = useState("Like to turn on new Route \n Like one advice to turn on \n the \"Add advices\" Route in the header");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -69,7 +69,7 @@ export const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    loggedUserSelector.role === "USER_BEGINNER" && setDialogMessage("Like to turn on new Route \n Like one advice to turn on \n the \"Add advices\" Route in the header")
+    loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
     dispatch(initialLoadItems());
     loggedUserSelector.email === "" && history.push('/login');
   }, [])
@@ -82,7 +82,7 @@ export const Dashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    handleClickOpen()
+    dialogMessage.split('\n')[0] == "You have become an Advanced User! " && handleClickOpen()
   }, [dialogMessage])
 
   let user = loggedUserSelector;
