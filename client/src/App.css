@@ -1,0 +1,307 @@
+body {
+    position: relative;
+}
+
+.App::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    min-height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    z-index: -1;
+    background-repeat: repeat, repeat;
+    background: url("./images/hex.jpg") repeat;
+    background-blend-mode: overlay;
+    background-size: contain;
+}
+
+.App {
+    text-align: center;
+    min-height: 100vh;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.App-header {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    background: rgb(54, 52, 52);
+    color: white;
+    height: 10vw;
+    opacity: 0.8;
+    min-height: unset;
+}
+
+.App-header> :first-child>* {
+    display: inline-flex;
+    align-content: center;
+    align-items: center;
+}
+
+.App-header span {
+    display: inline-flex;
+    align-content: center;
+    align-items: center;
+}
+
+@media screen and (min-width: 1024px) {
+    .App-header span {
+        display: unset;
+        align-content: center;
+        align-items: center;
+    }
+}
+
+.App-header span:not(:nth-child(1))> :first-child {
+    margin-left: 2vw;
+}
+
+.App-header span> :first-child {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.App-header span> :first-child:hover {
+    color: rgba(255, 0, 0, 0.76);
+    transition: 0.3s;
+}
+
+@media screen and (max-width: 600px) {
+    .App-header {
+        height: 25vw;
+    }
+    .App-header span {
+        margin: 4vw;
+    }
+}
+
+.App-link {
+    color: rgb(112, 76, 182);
+}
+
+.nav {
+    position: absolute;
+    right: 2rem;
+}
+
+#home {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    font-size: 1.5rem;
+}
+
+#qwerty {
+    margin-left: 2rem;
+    margin-right: 5rem;
+    font-size: 1.5rem;
+}
+
+.search {
+    border-radius: 1rem;
+    border: none;
+    height: 1.5rem;
+    padding-left: 0.5rem;
+}
+
+.search:focus {
+    outline: none;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+.flex-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: 75vw;
+    flex-wrap: wrap;
+    justify-content: safe;
+    flex-wrap: wrap;
+}
+
+.advice-list {
+    margin-top: 10vw;
+    list-style: none;
+    padding-bottom: 4vw;
+}
+
+.advice-item {
+    margin: 6vw 1vw 9vw 1vw;
+}
+
+@media screen and (min-width: 1024px) {
+    .advice-item {
+        margin: 3vw 1vw 2vw 1vw;
+    }
+}
+
+.advice-item> :first-child {
+    background: rgba(246, 252, 255, 0.993);
+    border-radius: 0.7vw;
+    padding: 2vw 0;
+    box-shadow: 0.5vw 0.5vw 1vw #888888;
+    transition: 0.1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: 0.2s;
+    margin-bottom: 6vw;
+}
+
+@media screen and (min-width: 1024px) {
+    .advice-item> :first-child {
+        height: 27vw;
+        margin-bottom: 2vw;
+    }
+}
+
+.advice-item> :first-child:hover {
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.advice-item> :first-child> :nth-child(even):not(:last-child):not(:nth-child(6)) {
+    width: 90%;
+    background: rgba(221, 218, 218, 0.164);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5vw;
+    height: 12vw;
+}
+
+@media screen and (min-width: 1024px) {
+    .advice-item> :first-child> :nth-child(even):not(:last-child):not(:nth-child(6)) {
+        height: 4vw;
+    }
+}
+
+.advice-item> :first-child> :nth-child(6) span {
+    background: rgba(221, 218, 218, 0.164);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5vw;
+    height: 2vw;
+    padding: 2vw;
+    margin: 0 0.2vw;
+}
+
+@media screen and (min-width: 1024px) {
+    .advice-item> :first-child> :nth-child(6) span {
+        padding: 0.7vw;
+        height: 0.5vw;
+    }
+}
+
+.advice-item i {
+    cursor: pointer;
+    transform: scale(1.5);
+    font-weight: 900;
+    transition: 0.1s all;
+}
+
+.advice-item i:active {
+    transform: scale(1.8);
+    transition: 0.2s;
+}
+
+.advice-item i:hover {
+    color: green;
+}
+
+.login,
+.signup {
+    margin-top: 4vw;
+}
+
+.login label,
+.signup label {
+    margin-bottom: 0.5vw;
+}
+
+.login input,
+.signup input {
+    border: 0.2rem solid black;
+    border-radius: 1.5vw;
+    box-shadow: 0.4vw 0.4vw 0.5vw gray;
+}
+
+@media screen and (min-width: 1024px) {
+    .login input,
+    .signup input {
+        border-radius: 0.5vw;
+        height: 1.7vw;
+    }
+}
+
+form button {
+    border: 0.5rem solid black;
+    border-radius: 0.5vw;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0.4vw 0.4vw 0.5vw gray;
+}
+
+input:focus {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+form button {
+    transition: 0.2s;
+}
+
+form button:active {
+    transform: scale(1.2);
+    transition: 0.2s;
+}
+
+.Add-advice {
+    padding-top: 30vw;
+}
+
+@media screen and (min-width: 1024px) {
+    .Add-advice {
+        padding-top: 5vw;
+    }
+}
+
+.Add-advice input {
+    height: 8vw;
+    width: 70vw;
+    border: 0.2rem solid black;
+    border-radius: 0.5vw;
+    box-shadow: 0.4vw 0.4vw 0.5vw gray;
+    padding-left: 1.5vw;
+    margin-bottom: 10vw;
+}
+
+@media screen and (min-width: 1024px) {
+    .Add-advice input {
+        height: 2vw;
+        width: 20vw;
+        margin-bottom: 3.5vw;
+        padding-left: 0.5vw;
+    }
+}
