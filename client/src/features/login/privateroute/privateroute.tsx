@@ -1,19 +1,18 @@
-import React, { Component } from "react";
-import { useSelector } from 'react-redux';
+import React from "react";
 
-import {Redirect, Route, RouteProps} from 'react-router'
+import { Redirect, Route, RouteProps } from 'react-router'
 
 export interface IPrivateRouteProps extends RouteProps {
-  isAuth: boolean 
-  redirectPath: string 
+  isAuth: boolean
+  redirectPath: string
 }
 
 const PrivateRoute: React.FC<IPrivateRouteProps> = (props) => {
-    return props.isAuth ? (
-    <Route {...props} component={props.component} render={undefined} />
+  return props.isAuth ? (
+    <Route {...props} component={props.component} />
   ) : (
-    <Redirect to={{pathname: props.redirectPath}} />
-  )
+      <Redirect to={{ pathname: props.redirectPath }} />
+    )
 }
 
 export default PrivateRoute

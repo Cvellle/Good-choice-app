@@ -9,6 +9,8 @@ import { Dashboard } from './features/dashboard/Dashboard';
 import { AddItems } from './features/dashboard/AddItems';
 import './App.css';
 import PrivateRoute from './features/login/privateroute/privateroute';
+import { Redirect } from 'react-router'
+
 import {
   loggedUser,
 } from './features/login/loginSlice';

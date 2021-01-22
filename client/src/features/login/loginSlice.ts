@@ -24,7 +24,6 @@ export const loginSlice = createSlice({
       state.role = role;
     },
     logOutUser: (state) => {
-      state.email = "";
       state.role = "";
     },
     changeRole: (state, action: PayloadAction<User>) => {
