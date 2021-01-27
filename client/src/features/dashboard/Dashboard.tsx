@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -57,8 +57,12 @@ export const Dashboard: React.FC = () => {
   const { history } = useReactRouter()
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
-  const [dialogMessage, setDialogMessage] = useState("Like to turn on new Route \n Like one advice to turn on \n the \"Add advices\" Route in the header");
+  useEffect(() => {
+    dispatch(initialLoadItems());
+    !loggedUserSelector && history.push('/login');
+  }, [])
+
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -68,22 +72,12 @@ export const Dashboard: React.FC = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
-    dispatch(initialLoadItems());
-    loggedUserSelector.email === "" && history.push('/login');
-  }, [])
-
   const likeFunction = (e: React.MouseEvent, advice: IAdvice, user: User) => {
     e.stopPropagation()
     dispatch(likeAction(advice));
     dispatch(changeRole(user));
-    loggedUserSelector.role == 'USER_BEGINNER' && setDialogMessage("You have become an Advanced User! \n You unlocked new routes in the Header. \n You can add your own advices now!")
+    loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
   };
-
-  useEffect(() => {
-    dialogMessage.split('\n')[0] == "You have become an Advanced User! " && handleClickOpen()
-  }, [dialogMessage])
 
   let user = loggedUserSelector;
 
@@ -131,11 +125,13 @@ export const Dashboard: React.FC = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{dialogMessage.split('\n')[0]}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"You have become an Advanced user!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {dialogMessage.split('\n')[1]}
-            {dialogMessage.split('\n')[2]}
+            You unlocked new routes in the Header.
+              <br />
+            <br />
+              You can add your own advices now!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
