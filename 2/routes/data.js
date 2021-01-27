@@ -10,6 +10,7 @@ const DataSchema = new Schema(
     password: String,
     role: String,
     registrationKey: String,
+    image: String,
   },
   { timestamps: true }
 );

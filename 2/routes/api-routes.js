@@ -42,8 +42,7 @@ module.exports = function (app) {
       subject: "Konfirmacija - Good Choice",
       html: `<h3 style="color:red">Dobrodošli na Good Choice!</h3> <br>
       Zahvaljujemo se na registraciji.<br><br>
-      <b>Molimo te da klikneš na sledeći <a href="${link}/login?registrationKey=${registrationKey}&mode=registration">LINK</a>
-      kako bi aktivirao svoj nalog.</b> <br>
+      <b>Ulogujte se i uživajte, nastavite ka sajtu klikom na <a href="${link}/login">LINK</a>
       <hr>
       `,
     };
@@ -61,6 +60,14 @@ module.exports = function (app) {
   });
 
   app.put("/api/datas", (req, res) => {
+    const { email, update } = req.body;
+    Data.findOneAndUpdate(email, update, (err) => {
+      if (err) return res.json({ success: false, error: err });
+      return res.json({ success: true });
+    });
+  });
+
+  app.put("/api/changeImage", (req, res) => {
     const { email, update } = req.body;
     Data.findOneAndUpdate(email, update, (err) => {
       if (err) return res.json({ success: false, error: err });

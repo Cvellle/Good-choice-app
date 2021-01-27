@@ -5,13 +5,15 @@ import axios from 'axios'
 interface User {
   id: number,
   email: string,
-  role: string
+  role: string,
+  image: string
 }
 
 const initialState: User = {
   id: 0,
   email: "",
-  role: ""
+  role: "",
+  image: " "
 };
 
 export const loginSlice = createSlice({
@@ -19,12 +21,14 @@ export const loginSlice = createSlice({
   initialState,
   reducers: {
     setLoggedUser: (state, action: PayloadAction<User>) => {
-      const { email, role } = action.payload;
+      const { email, role, image } = action.payload;
       state.email = email;
       state.role = role;
+      state.image = image
     },
     logOutUser: (state) => {
       state.role = "";
+      state.image = "";
     },
     changeRole: (state, action: PayloadAction<User>) => {
       const { email, role } = action.payload;

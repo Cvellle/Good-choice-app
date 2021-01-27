@@ -9,7 +9,7 @@ import { Dashboard } from './features/dashboard/Dashboard';
 import { AddItems } from './features/dashboard/AddItems';
 import './App.css';
 import PrivateRoute from './features/login/privateroute/privateroute';
-import { Redirect } from 'react-router'
+import { Sidebar } from './features/sidebar/Sidebar'
 
 import {
   loggedUser,
@@ -31,6 +31,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
+        <PrivateRoute component={Sidebar} isAuth={adminBoolean || beginnerUserBoolean || advancedUserBoolean || advancedUserBoolean} redirectPath="/login" path="/" />
         <Route component={SignUp} exact path="/signup" />
         <Route component={Login} exact path="/login" />
         <PrivateRoute component={Dashboard} isAuth={adminBoolean || beginnerUserBoolean || advancedUserBoolean} redirectPath="/login" path="/" exact />

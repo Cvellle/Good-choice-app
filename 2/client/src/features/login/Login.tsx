@@ -51,6 +51,7 @@ export const Login: React.FC = () => {
                   id: res.data[0].id,
                   email: res.data[0].email,
                   role: res.data[0].role,
+                  image: res.data[0].image
                 }))
               }
             }
