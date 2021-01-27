@@ -9,6 +9,12 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import useReactRouter from 'use-react-router';
 
+const initialValues = {
+  id: 0,
+  email: '',
+  password: '',
+}
+
 const validationSchema = yup.object().shape({
   email: yup
     .string()
@@ -23,18 +29,14 @@ export const Login: React.FC = () => {
   const { history } = useReactRouter()
 
   useEffect(() => {
-    (loggedUserSelector.role !== "") && history.push('/');
-    (loggedUserSelector.role == "") && history.push('/login');
+    (loggedUserSelector.email !== "") && history.push('/');
+    (loggedUserSelector.email == "") && history.push('/login');
   }, [])
 
-  const initialValues = {
-    id: 0,
-    email: loggedUserSelector.email,
-    password: '',
-  }
 
   return (
     <div className="login">
+      <p>{loggedUserSelector.email}</p>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {

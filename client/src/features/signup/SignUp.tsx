@@ -6,7 +6,6 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import {
-  setLoggedUser,
   loggedUser,
 } from '../login/loginSlice';
 
@@ -35,8 +34,8 @@ export const SignUp: React.FC = () => {
   const loggedUserSelector = useSelector(loggedUser);
 
   useEffect(() => {
-    (loggedUserSelector.role !== "") && history.push('/');
-    (loggedUserSelector.role == "") && history.push('/signup');
+    (loggedUserSelector.email !== "") && history.push('/');
+    (loggedUserSelector.email == "") && history.push('/signup');
   }, [])
 
   return (
@@ -44,11 +43,6 @@ export const SignUp: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
-          dispatch(setLoggedUser({
-            id: 0,
-            email: values.email,
-            role: '',
-          }))
           axios.get("/api/datas", {
             params: {
               email: values.email,

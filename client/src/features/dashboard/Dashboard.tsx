@@ -71,8 +71,7 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
     dispatch(initialLoadItems());
-    loggedUserSelector.role == "" && history.push('/login');
-    loggedUserSelector.role !== "" && history.push('/');
+    loggedUserSelector.email === "" && history.push('/login');
   }, [])
 
   const likeFunction = (e: React.MouseEvent, advice: IAdvice, user: User) => {

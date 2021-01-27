@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <div className="App-header">
-      {(loggedUserSelector.role !== "") ? (
+      {(loggedUserSelector.email !== "") ? (
         <div className={classes.root} style={{ width: '90%' }}>
           <Grid container spacing={0}>
             <Grid item xs={6}>
