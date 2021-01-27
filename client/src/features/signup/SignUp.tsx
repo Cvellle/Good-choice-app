@@ -16,7 +16,8 @@ const initialValues = {
   email: '',
   password: '',
   role: 'USER_BEGINNER',
-  registrationKey: ' '
+  registrationKey: ' ',
+  image: ' '
 }
 
 const validationSchema = yup.object().shape({
@@ -48,6 +49,7 @@ export const SignUp: React.FC = () => {
             id: 0,
             email: values.email,
             role: '',
+            image: ''
           }))
           axios.get("/api/datas", {
             params: {
@@ -64,6 +66,7 @@ export const SignUp: React.FC = () => {
                   password: values.password,
                   role: values.role,
                   registrationKey: values.registrationKey,
+                  image: values.image
                 })
               }
             }
@@ -178,7 +181,18 @@ export const SignUp: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={
-                  errors.role && touched.role ? 'text-input error' : 'text-input'
+                  errors.registrationKey && touched.registrationKey ? 'text-input error' : 'text-input'
+                }
+                type="hidden"
+              />
+              <input
+                id="image"
+                placeholder="Enter your role"
+                value={values.image}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.image && touched.image ? 'text-input error' : 'text-input'
                 }
                 type="hidden"
               />

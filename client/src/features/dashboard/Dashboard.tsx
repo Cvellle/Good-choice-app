@@ -33,7 +33,8 @@ interface IAdvice {
 interface User {
   id: number,
   email: string,
-  role: string
+  role: string,
+  image: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -71,7 +72,7 @@ export const Dashboard: React.FC = () => {
   useEffect(() => {
     loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
     dispatch(initialLoadItems());
-    loggedUserSelector.role == "" && history.push('/login');
+    loggedUserSelector.role === "" && history.push('/login');
     loggedUserSelector.role !== "" && history.push('/');
   }, [])
 
@@ -90,7 +91,7 @@ export const Dashboard: React.FC = () => {
 
   const Item = (advice: IAdvice) => (
     <React.Fragment>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} lg={4}>
         <div className="advice-item">
           <Paper className={classes.paper}>
             <b>Title</b>
@@ -122,7 +123,6 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <div id="res"></div>
       <div className="flex-wrapper advice-list">
         {adviceList}
       </div>
@@ -145,6 +145,6 @@ export const Dashboard: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   )
 }
