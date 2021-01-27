@@ -1,29 +1,17 @@
 const Advices = require("../models/Advices");
 const crypto = require("crypto");
+const mongoose = require("mongoose");
+const GridFsStorage = require("multer-gridfs-storage");
+const Grid = require("gridfs-stream");
 
-var formidable = require("formidable");
-var fs = require("fs");
 var multer = require("multer");
 // var upload = multer({ dest: "./uploads/" });
 
-var storage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    var dir = "./client/src/uploads";
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir);
-    }
-    callback(null, dir);
-  },
-  filename: function (req, file, callback) {
-    callback(null, file.originalname);
-  },
-});
-
-var upload = multer({ storage: storage }).array("files", 12);
+// 1
 
 // var storage = multer.diskStorage({
 //   destination: function (req, file, callback) {
-//     var dir = "./uploads";
+//     var dir = "./client/src/uploads";
 //     if (!fs.existsSync(dir)) {
 //       fs.mkdirSync(dir);
 //     }
@@ -33,7 +21,41 @@ var upload = multer({ storage: storage }).array("files", 12);
 //     callback(null, file.originalname);
 //   },
 // });
+
 // var upload = multer({ storage: storage }).array("files", 12);
+
+const mongoURI = "mongodb+srv://cvele:cvelePass@posts.jzao1.mongodb.net/posts";
+
+const conn = mongoose.createConnection(mongoURI);
+let gfs;
+
+conn.once("open", () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection("uploads");
+  console.log("Connection Successful");
+});
+
+// Create storage engine
+const storage = new GridFsStorage({
+  url: mongoURI,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) {
+          return reject(err);
+        }
+        const filename = file.originalname;
+        const fileInfo = {
+          filename: filename,
+          bucketName: "uploads",
+        };
+        resolve(fileInfo);
+      });
+    });
+  },
+});
+
+const upload = multer({ storage });
 
 module.exports = function (app) {
   const randomString = crypto.randomBytes(Math.ceil(20 / 2)).toString("hex");
@@ -60,15 +82,6 @@ module.exports = function (app) {
       });
   });
 
-  app.post("/upload", function (req, res, next) {
-    upload(req, res, function (err) {
-      if (err) {
-        return res.end("Something went wrong:(");
-      }
-      res.end();
-    });
-  });
-
   app.put("/api/advices", (req, res) => {
     const { id, update } = req.body;
     Advices.findOneAndUpdate(id, update, (err) => {
@@ -82,6 +95,33 @@ module.exports = function (app) {
     Advices.findOneAndDelete(id, (err) => {
       if (err) return res.send(err);
       return res.json({ success: true });
+    });
+  });
+
+  // UPLOAD IMAGES
+
+  app.post("/upload", upload.single("files"), (req, res, err) => {
+    res.send(req.files);
+  });
+
+  app.get("/:filename", (req, res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+      if (!file || file.length === 0) {
+        return res.status(404).json({
+          err: "No file exists",
+        });
+      }
+      if (
+        file.contentType === "image/jpeg" ||
+        file.contentType === "image/png"
+      ) {
+        const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+      } else {
+        res.status(404).json({
+          err: "Not an image",
+        });
+      }
     });
   });
 };

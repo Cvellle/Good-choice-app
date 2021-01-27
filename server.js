@@ -12,11 +12,10 @@ const path = require("path");
 const dotenv = require("dotenv");
 dotenv.config();
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-    "mongodb+srv://cvele:cvelePass@posts.jzao1.mongodb.net/posts",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(cors());
 require("./routes/api-routes")(app);
