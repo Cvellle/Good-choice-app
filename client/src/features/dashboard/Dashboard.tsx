@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -33,7 +33,8 @@ interface IAdvice {
 interface User {
   id: number,
   email: string,
-  role: string
+  role: string,
+  image: string
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -57,12 +58,8 @@ export const Dashboard: React.FC = () => {
   const { history } = useReactRouter()
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(initialLoadItems());
-    !loggedUserSelector && history.push('/login');
-  }, [])
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState("Like to turn on new Route \n Like one advice to turn on \n the \"Add advices\" Route in the header");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,18 +69,29 @@ export const Dashboard: React.FC = () => {
     setOpen(false);
   };
 
+  useEffect(() => {
+    loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
+    dispatch(initialLoadItems());
+    loggedUserSelector.role === "" && history.push('/login');
+    loggedUserSelector.role !== "" && history.push('/');
+  }, [])
+
   const likeFunction = (e: React.MouseEvent, advice: IAdvice, user: User) => {
     e.stopPropagation()
     dispatch(likeAction(advice));
     dispatch(changeRole(user));
-    loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
+    loggedUserSelector.role == 'USER_BEGINNER' && setDialogMessage("You have become an Advanced User! \n You unlocked new routes in the Header. \n You can add your own advices now!")
   };
+
+  useEffect(() => {
+    dialogMessage.split('\n')[0] == "You have become an Advanced User! " && handleClickOpen()
+  }, [dialogMessage])
 
   let user = loggedUserSelector;
 
   const Item = (advice: IAdvice) => (
     <React.Fragment>
-      <Grid item xs={12} sm={4}>
+      <Grid item xs={12} lg={4}>
         <div className="advice-item">
           <Paper className={classes.paper}>
             <b>Title</b>
@@ -115,7 +123,6 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <div id="res"></div>
       <div className="flex-wrapper advice-list">
         {adviceList}
       </div>
@@ -125,13 +132,11 @@ export const Dashboard: React.FC = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"You have become an Advanced user!"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{dialogMessage.split('\n')[0]}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            You unlocked new routes in the Header.
-              <br />
-            <br />
-              You can add your own advices now!
+            {dialogMessage.split('\n')[1]}
+            {dialogMessage.split('\n')[2]}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -140,6 +145,6 @@ export const Dashboard: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </div >
   )
 }

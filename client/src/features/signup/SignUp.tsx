@@ -6,6 +6,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 
 import {
+  setLoggedUser,
   loggedUser,
 } from '../login/loginSlice';
 
@@ -15,7 +16,8 @@ const initialValues = {
   email: '',
   password: '',
   role: 'USER_BEGINNER',
-  registrationKey: ' '
+  registrationKey: ' ',
+  image: ' '
 }
 
 const validationSchema = yup.object().shape({
@@ -34,8 +36,8 @@ export const SignUp: React.FC = () => {
   const loggedUserSelector = useSelector(loggedUser);
 
   useEffect(() => {
-    (loggedUserSelector.email !== "") && history.push('/');
-    (loggedUserSelector.email == "") && history.push('/signup');
+    (loggedUserSelector.role !== "") && history.push('/');
+    (loggedUserSelector.role == "") && history.push('/signup');
   }, [])
 
   return (
@@ -43,6 +45,12 @@ export const SignUp: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
+          dispatch(setLoggedUser({
+            id: 0,
+            email: values.email,
+            role: '',
+            image: ''
+          }))
           axios.get("/api/datas", {
             params: {
               email: values.email,
@@ -58,6 +66,7 @@ export const SignUp: React.FC = () => {
                   password: values.password,
                   role: values.role,
                   registrationKey: values.registrationKey,
+                  image: values.image
                 })
               }
             }
@@ -172,7 +181,18 @@ export const SignUp: React.FC = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 className={
-                  errors.role && touched.role ? 'text-input error' : 'text-input'
+                  errors.registrationKey && touched.registrationKey ? 'text-input error' : 'text-input'
+                }
+                type="hidden"
+              />
+              <input
+                id="image"
+                placeholder="Enter your role"
+                value={values.image}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                className={
+                  errors.image && touched.image ? 'text-input error' : 'text-input'
                 }
                 type="hidden"
               />
