@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -16,7 +16,6 @@ export const Sidebar: React.FC = () => {
   const loggedUserSelector = useSelector(loggedUser);
 
   const [image, setImage] = useState<any>();
-  const [profileImage, setProfileImage] = useState<any>();
 
   const onSubmitImage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,8 +31,6 @@ export const Sidebar: React.FC = () => {
     fetch("/upload", {
       method: "POST",
       body: data,
-    }).then(() => {
-      setProfileImage(image[0].name)
     })
       .then(() => {
         dispatch(setLoggedUser({
@@ -43,8 +40,16 @@ export const Sidebar: React.FC = () => {
           image: image[0].name
         }))
       }
-      );
-  };
+      )
+      .then(() => {
+        axios.put("/api/changeImage", {
+          email: { email: loggedUserSelector.email },
+          update: {
+            image: image[0].name
+          }
+        });
+      })
+  }
 
   return (
     <div className="sidebar">
@@ -53,7 +58,7 @@ export const Sidebar: React.FC = () => {
           <Box display="flex" justifyContent="center" style={{ display: "flex" }} className="profileWrapper">
             <form onSubmit={(e) => onSubmitImage(e)} className="create-post-form">
               <div className="profileImageDiv">
-                {<img src={loggedUserSelector.image && `http://localhost:3000/${loggedUserSelector.image}`} alt="" />}
+                {<img src={loggedUserSelector.image && `./${loggedUserSelector.image}`} alt="" />}
               </div>
               <div className="input-wrapper">
                 <span className="label">
