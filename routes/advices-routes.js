@@ -5,37 +5,21 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 
 var multer = require("multer");
-// var upload = multer({ dest: "./uploads/" });
-
-// 1
-
-// var storage = multer.diskStorage({
-//   destination: function (req, file, callback) {
-//     var dir = "./client/src/uploads";
-//     if (!fs.existsSync(dir)) {
-//       fs.mkdirSync(dir);
-//     }
-//     callback(null, dir);
-//   },
-//   filename: function (req, file, callback) {
-//     callback(null, file.originalname);
-//   },
-// });
-
-// var upload = multer({ storage: storage }).array("files", 12);
 
 const mongoURI = "mongodb+srv://cvele:cvelePass@posts.jzao1.mongodb.net/posts";
 
 const conn = mongoose.createConnection(mongoURI);
 let gfs;
 
+let imageCollection =
+  process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
+
 conn.once("open", () => {
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection("uploads");
+  gfs.collection(imageCollection);
   console.log("Connection Successful");
 });
 
-// Create storage engine
 const storage = new GridFsStorage({
   url: mongoURI,
   file: (req, file) => {
@@ -44,10 +28,12 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
+        let bucketNameVar =
+          process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
         const filename = file.originalname;
         const fileInfo = {
           filename: filename,
-          bucketName: "uploads",
+          bucketName: bucketNameVar,
         };
         resolve(fileInfo);
       });
@@ -104,24 +90,33 @@ module.exports = function (app) {
     res.send(req.files);
   });
 
-  app.get("/:filename", (req, res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-      if (!file || file.length === 0) {
-        return res.status(404).json({
-          err: "No file exists",
-        });
-      }
-      if (
-        file.contentType === "image/jpeg" ||
-        file.contentType === "image/png"
-      ) {
-        const readstream = gfs.createReadStream(file.filename);
-        readstream.pipe(res);
-      } else {
-        res.status(404).json({
-          err: "Not an image",
-        });
-      }
-    });
+  let imageRoute = "/:filename";
+  let png = "png";
+  let jpg = "jpg";
+  let gif = "gif";
+
+  app.get(imageRoute, (req, res) => {
+    (req.params.filename.includes(png) ||
+      req.params.filename.includes(jpg) ||
+      req.params.filename.includes(gif)) &&
+      gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        if (!file || file.length === 0) {
+          return res.status(404).json({
+            err: "No file exists",
+          });
+        }
+        if (
+          file.contentType === "image/jpeg" ||
+          file.contentType === "image/png" ||
+          file.contentType === "image/gif"
+        ) {
+          const readstream = gfs.createReadStream(file.filename);
+          readstream.pipe(res);
+        } else {
+          res.status(404).json({
+            err: "Not an image",
+          });
+        }
+      });
   });
 };
