@@ -40,6 +40,11 @@ export const SignUp: React.FC = () => {
     (loggedUserSelector.role == "") && history.push('/signup');
   }, [])
 
+  const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
+  const processProd = process.env.USERS_ROUTE_PRODUCTION;
+
+  let usersCollection = "datas";
+
   return (
     <div className="signup">
       <Formik
@@ -47,11 +52,13 @@ export const SignUp: React.FC = () => {
         onSubmit={(values, { setSubmitting }) => {
           dispatch(setLoggedUser({
             id: 0,
+            firstName: "",
+            lastName: "",
             email: values.email,
             role: '',
             image: ''
           }))
-          axios.get("/api/datas", {
+          axios.get(`/api/${usersCollection}`, {
             params: {
               email: values.email,
             }
@@ -59,7 +66,7 @@ export const SignUp: React.FC = () => {
             (res) => {
               if (!res.data[0]) {
                 history.push('/login')
-                axios.post("/api/datas", {
+                axios.post(`/api/${usersCollection}`, {
                   firstName: values.firstName,
                   lastName: values.lastName,
                   email: values.email,

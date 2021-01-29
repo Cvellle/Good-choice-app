@@ -4,10 +4,11 @@ const Schema = mongoose.Schema;
 const AdvicesSchema = new Schema(
   {
     id: Number,
+    creator: String,
     name: String,
     location: String,
     category: String,
-    likes: Number,
+    likes: [String],
   },
   { timestamps: true }
 );

@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: start;
   flex-wrap: wrap;
-  background: rgb(121, 162, 197);
+  background: blueviolet;
   height: 10vh;
   width: 100vw;
   z-index: 1;
@@ -32,7 +32,6 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  background: rgb(121, 162, 197);
 }
 
 @media screen and (min-width: 768px) {
@@ -156,7 +155,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: #00bfff;
+  background: #7f2bb8;
   cursor: pointer;
   color: #fff;
   border-radius: 0.5vw;

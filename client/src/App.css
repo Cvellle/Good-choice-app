@@ -22,7 +22,7 @@ body {
 .App {
   padding-top: 60vw;
   text-align: center;
-  min-height: 100vh;
+  min-height: 40vh;
 }
 
 @media screen and (min-width: 768px) {
@@ -33,6 +33,7 @@ body {
 @media screen and (min-width: 1025px) {
   .App {
     padding-top: 15vw;
+    min-height: 40vh;
   }
 }
 
@@ -99,6 +100,73 @@ body {
   .App-header span {
     margin: 1vw;
   }
+}
+
+.allButton {
+  background: rgb(178, 155, 199) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vw;
+  border-radius: 1vw;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+@media screen and (min-width: 768px) {
+  .allButton {
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .allButton {
+    height: 3vw;
+    border-radius: 0.5vw;
+  }
+}
+
+.allButton:active {
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.filterAdvices .filterInput {
+  background: rgba(210, 194, 223, 0.801) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vw;
+  border-radius: 1vw;
+  cursor: pointer;
+  transition: 0.3s;
+  opacity: 0.6;
+  width: 100%;
+  border: none;
+  padding: none;
+  padding-left: 4vw;
+  width: calc(100% - 4vw);
+}
+
+@media screen and (min-width: 768px) {
+  .filterAdvices .filterInput {
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .filterAdvices .filterInput {
+    height: 3vw;
+    border-radius: 0.5vw;
+    padding: 0;
+    font-size: 1.2vw;
+    border: none;
+    padding-left: 1vw;
+    width: 10vw;
+  }
+}
+
+.filterAdvices .filterInput:focus {
+  opacity: 0.8;
+  transition: 0.3s;
 }
 
 .flex-wrapper {
@@ -216,6 +284,8 @@ body {
   height: 2vw;
   padding: 2vw;
   margin: 0 0.2vw;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 @media screen and (min-width: 768px) {
@@ -231,6 +301,16 @@ body {
     padding: 1vw;
     height: 0.5vw;
   }
+}
+
+.advice-item > :first-child > :nth-child(6) span:hover {
+  background: rgba(168, 53, 53, 0.164);
+  transition: 0.3s;
+}
+
+.creatorInfo img {
+  width: 2vw;
+  height: auto;
 }
 
 .advice-item i {

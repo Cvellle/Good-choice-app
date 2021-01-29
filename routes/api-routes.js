@@ -8,7 +8,12 @@ module.exports = function (app) {
   const registrationKey = `${Date.now()}_${randomString}`;
   const link = process.env.APP_URL_DEVELOPMENT || "http://localhost:3000";
 
-  app.get("/api/datas", (req, res) => {
+  const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
+  const processProd = process.env.USERS_ROUTE_PRODUCTION;
+
+  let usersCollection = "datas";
+
+  app.get(`/api/${usersCollection}`, (req, res) => {
     Data.aggregate([{ $match: req.query }])
       .then(function (data) {
         res.send(data);
@@ -18,7 +23,7 @@ module.exports = function (app) {
       });
   });
 
-  app.post("/api/datas", function (req, res) {
+  app.post(`/api/${usersCollection}`, function (req, res) {
     Data.create(req.body)
       .then(function (data) {
         res.json(data);
@@ -59,7 +64,7 @@ module.exports = function (app) {
       .catch((error) => console.log(error));
   });
 
-  app.put("/api/datas", (req, res) => {
+  app.put(`/api/${usersCollection}`, (req, res) => {
     const { email, update } = req.body;
     Data.findOneAndUpdate(email, update, (err) => {
       if (err) return res.json({ success: false, error: err });
@@ -75,7 +80,7 @@ module.exports = function (app) {
     });
   });
 
-  app.delete("/api/datas", (req, res) => {
+  app.delete(`/api/${usersCollection}`, (req, res) => {
     const { id } = req.body;
     Data.findOneAndDelete(id, (err) => {
       if (err) return res.send(err);

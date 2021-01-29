@@ -69,7 +69,7 @@ export const dashboardSlice = createSlice({
         advices: action.payload
       };
     },
-    likeAction: (state, action: PayloadAction<IAdvice>) => {
+    LikeAction: (state, action: PayloadAction<IAdvice>) => {
       const { id, likes } = action.payload;
       let newLikes = action.payload.likes + 1;
       axios.put("/api/advices", {
@@ -112,7 +112,7 @@ export const initialLoadItems = (): AppThunk => (dispatch) => {
     })
 };
 
-export const { setItems, likeAction, addItems } = dashboardSlice.actions;
+export const { setItems, LikeAction, addItems } = dashboardSlice.actions;
 
 export const advicesStateArray = (state: RootState) => state.dashboard;
 

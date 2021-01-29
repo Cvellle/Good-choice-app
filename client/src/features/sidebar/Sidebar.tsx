@@ -35,6 +35,8 @@ export const Sidebar: React.FC = () => {
       .then(() => {
         dispatch(setLoggedUser({
           id: loggedUserSelector.id,
+          firstName: loggedUserSelector.firstName,
+          lastName: loggedUserSelector.lastName,
           email: loggedUserSelector.email,
           role: loggedUserSelector.role,
           image: image[0].name

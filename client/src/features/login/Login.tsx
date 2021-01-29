@@ -33,12 +33,17 @@ export const Login: React.FC = () => {
     password: '',
   }
 
+  const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
+  const processProd = process.env.USERS_ROUTE_PRODUCTION;
+
+  let usersCollection = "datas";
+
   return (
     <div className="login">
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
-          axios.get("/api/datas", {
+          axios.get(`/api/${usersCollection}`, {
             params: {
               email: values.email,
               password: values.password
@@ -49,6 +54,8 @@ export const Login: React.FC = () => {
                 history.push('/');
                 dispatch(setLoggedUser({
                   id: res.data[0].id,
+                  firstName: res.data[0].firstName,
+                  lastName: res.data[0].lastName,
                   email: res.data[0].email,
                   role: res.data[0].role,
                   image: res.data[0].image

@@ -5,6 +5,8 @@ import axios from 'axios'
 interface User {
   id: number,
   email: string,
+  firstName: string,
+  lastName: string,
   role: string,
   image: string
 }
@@ -12,16 +14,22 @@ interface User {
 const initialState: User = {
   id: 0,
   email: "",
+  firstName: "",
+  lastName: "",
   role: "",
   image: " "
 };
+
+let usersCollection = "datas"
 
 export const loginSlice = createSlice({
   name: 'login',
   initialState,
   reducers: {
     setLoggedUser: (state, action: PayloadAction<User>) => {
-      const { email, role, image } = action.payload;
+      const { email, firstName, lastName, role, image } = action.payload;
+      state.firstName = firstName;
+      state.lastName = lastName;
       state.email = email;
       state.role = role;
       state.image = image
@@ -34,7 +42,7 @@ export const loginSlice = createSlice({
       const { email, role } = action.payload;
       (state.role == "USER_BEGINNER") && (state.role = "USER_ADVANCED")
 
-      axios.put("/api/datas", {
+      axios.put(`/api/${usersCollection}`, {
         email: { email: email },
         update: {
           ...action.payload,

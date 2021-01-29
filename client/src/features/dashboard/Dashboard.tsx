@@ -6,14 +6,19 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import SearchIcon from '@material-ui/icons/Search';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import axios from 'axios'
 
 import {
-  advicesStateArray,
+  advicesState,
+  setCurrentUser,
   initialLoadItems,
+  filterAdvicesAction,
+  categoryAdvicesAction,
   likeAction
 } from './dashboardSlice';
 import {
@@ -24,14 +29,17 @@ import '../../App.css'
 
 interface IAdvice {
   id: number,
+  creator: string,
   name: string,
   location: string
   category: string
-  likes: number
+  likes: string[]
 }
 
 interface User {
   id: number,
+  firstName: string,
+  lastName: string,
   email: string,
   role: string,
   image: string
@@ -53,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const advicesSelector = useSelector(advicesStateArray);
+  const advicesSelector = useSelector(advicesState);
   const loggedUserSelector = useSelector(loggedUser);
   const { history } = useReactRouter()
   const classes = useStyles();
@@ -69,9 +77,14 @@ export const Dashboard: React.FC = () => {
     setOpen(false);
   };
 
+  const filterByCategory = (filterArg: string) => {
+    categoryAdvicesAction(filterArg);
+  };
+
   useEffect(() => {
     loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
     dispatch(initialLoadItems());
+    dispatch(setCurrentUser(loggedUserSelector.email));
     loggedUserSelector.role === "" && history.push('/login');
     loggedUserSelector.role !== "" && history.push('/');
   }, [])
@@ -89,31 +102,64 @@ export const Dashboard: React.FC = () => {
 
   let user = loggedUserSelector;
 
-  const Item = (advice: IAdvice) => (
-    <React.Fragment>
-      <Grid item xs={12} lg={4}>
-        <div className="advice-item">
-          <Paper className={classes.paper}>
-            <b>Title</b>
-            <p>{advice.name}</p>
-            <b>Location</b>
-            <p>{advice.location}</p>
-            <b>Category</b>
-            <p>{advice.category.split(",").map(el => <span>{el}</span>)}</p>
-            <p><span><b>Likes: </b></span>{advice.likes}</p>
-          </Paper>
-          <i className="fa fa-thumbs-o-up"
-            onClick={(e: React.MouseEvent) => likeFunction(e, advice, user)}>
-          </i>
-        </div>
-      </Grid>
-    </React.Fragment>
-  )
+  const Item = (advice: IAdvice) => {
+    const [creatorImage, setCreatorImage] = useState<any>({
+      id: 0,
+      email: "",
+      firstName: "",
+      lastName: "",
+      role: "",
+      image: " "
+    });
+
+    const getItemCreatorInfo = (infoArg: string) => {
+      axios.get(`/api/datas`, {
+        params: {
+          email: infoArg,
+        }
+      }).then(
+        (res) => {
+          res.data[0] && setCreatorImage(res.data[0])
+        }
+      )
+    }
+
+    useEffect(() => {
+      getItemCreatorInfo(advice.creator)
+    }, [])
+
+
+    return (
+      <React.Fragment>
+        <Grid item xs={12} lg={4}>
+          <div className="advice-item">
+            <Paper className={classes.paper}>
+              <b>Title</b>
+              <p>{advice.creator}</p>
+              <b>Location</b>
+              <p>{advice.location}</p>
+              <b>Category</b>
+              <p>{advice.category.split(",").map(el => <span onClick={() => dispatch(categoryAdvicesAction(el))}>{el}</span>)}</p>
+              <p><span><b>Likes: </b></span>{advice.likes.length}</p>
+            </Paper>
+            <i className="fa fa-thumbs-o-up" style={advice.likes.includes(loggedUserSelector.email) ? { color: "green" } : { color: "unset" }}
+              onClick={(e: React.MouseEvent) => likeFunction(e, advice, user)}>
+            </i>
+            <span className="creatorInfo">
+              By: <img src={`./${creatorImage.image}`} />
+              <p>{creatorImage.firstName}</p>
+            </span>
+          </div>
+        </Grid>
+      </React.Fragment>
+    )
+  }
 
   const adviceList = advicesSelector.advices.map((advice: IAdvice) =>
     <Item
       id={advice.id}
       name={advice.name}
+      creator={advice.creator}
       location={advice.location}
       category={advice.category}
       likes={advice.likes}
@@ -124,6 +170,17 @@ export const Dashboard: React.FC = () => {
   return (
     <div>
       <div className="flex-wrapper advice-list">
+        <Grid container spacing={0} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Grid container spacing={2} className="filterAdvices" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <Grid item xs={12} lg={1}>
+              <span className="allButton" onClick={() => dispatch(categoryAdvicesAction(""))}>All</span>
+            </Grid>
+            <SearchIcon />
+            <Grid item xs={12} lg={2}>
+              <input type="text" className="filterInput" placeholder="search items" onChange={(e) => dispatch(filterAdvicesAction(e.target.value))} />
+            </Grid>
+          </Grid>
+        </Grid>
         {adviceList}
       </div>
       <Dialog
@@ -136,6 +193,7 @@ export const Dashboard: React.FC = () => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {dialogMessage.split('\n')[1]}
+            <br />
             {dialogMessage.split('\n')[2]}
           </DialogContentText>
         </DialogContent>

@@ -11,10 +11,11 @@ import {
 
 interface IAdvice {
   id: number,
+  creator: string,
   name: string,
   location: string
   category: string
-  likes: number
+  likes: string[]
 }
 
 type Props = {
@@ -33,10 +34,11 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
 
   const [advice, setAdvice] = useState<IAdvice>({
     id: 0,
+    creator: "",
     name: "",
     location: "",
     category: "",
-    likes: 0,
+    likes: [],
   });
 
   const handleAdviceData = (
@@ -49,6 +51,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
       ...advice,
       id: currentMilliseconds,
       [id]: value,
+      creator: loggedUserSelector.email
     });
   };
 
@@ -58,6 +61,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
     setAdvice({
       ...advice,
       id: advice.id + 1,
+      creator: loggedUserSelector.email
     });
     history.push('/');
   };

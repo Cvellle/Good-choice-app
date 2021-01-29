@@ -3,16 +3,15 @@ const crypto = require("crypto");
 const mongoose = require("mongoose");
 const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
-
 var multer = require("multer");
 
-const mongoURI = "mongodb+srv://cvele:cvelePass@posts.jzao1.mongodb.net/posts";
-
-const conn = mongoose.createConnection(mongoURI);
+const mongoURI = process.env.MONGODB_URI;
+const conn = mongoose.createConnection(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 let gfs;
-
-let imageCollection =
-  process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
+let imageCollection = "uploads";
 
 conn.once("open", () => {
   gfs = Grid(conn.db, mongoose.mongo);
