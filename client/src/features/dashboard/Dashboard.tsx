@@ -135,7 +135,7 @@ export const Dashboard: React.FC = () => {
           <div className="advice-item">
             <Paper className={classes.paper}>
               <b>Title</b>
-              <p>{advice.creator}</p>
+              <p>{advice.name}</p>
               <b>Location</b>
               <p>{advice.location}</p>
               <b>Category</b>
