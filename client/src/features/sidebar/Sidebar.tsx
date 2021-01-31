@@ -60,7 +60,7 @@ export const Sidebar: React.FC = () => {
           <Box display="flex" justifyContent="center" style={{ display: "flex" }} className="profileWrapper">
             <form onSubmit={(e) => onSubmitImage(e)} className="create-post-form">
               <div className="profileImageDiv">
-                {<img src={loggedUserSelector.image && `./profileImage//${loggedUserSelector.image}`} alt="" />}
+                {<img src={loggedUserSelector.image && `./profileImage/${loggedUserSelector.image}`} alt="" />}
               </div>
               <div className="input-wrapper">
                 <span className="label">

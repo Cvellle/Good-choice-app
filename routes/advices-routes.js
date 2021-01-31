@@ -83,40 +83,37 @@ module.exports = function (app) {
     });
   });
 
+  // UPLOAD IMAGES
+
+  let png = "png";
+  let jpg = "jpg";
+  let gif = "gif";
+
   app.post("/upload", upload.single("files"), (req, res, err) => {
     res.send(req.files);
   });
 
   app.get("/profileImage/:filename", (req, res) => {
-    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-      if (!file || file.length === 0) {
-        return res.status(404).json({
-          err: "No file exists",
-        });
-      }
-      if (
-        file.contentType === "image/jpeg" ||
-        file.contentType === "image/png"
-      ) {
-        const readstream = gfs.createReadStream(file.filename);
-        readstream.pipe(res);
-      } else {
-        res.status(404).json({
-          err: "Not an image",
-        });
-      }
-    });
+    (req.params.filename.includes(png) ||
+      req.params.filename.includes(jpg) ||
+      req.params.filename.includes(gif)) &&
+      gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        if (!file || file.length === 0) {
+          return res.status(404).json({
+            err: "No file exists",
+          });
+        }
+        if (
+          file.contentType === "image/jpeg" ||
+          file.contentType === "image/png"
+        ) {
+          const readstream = gfs.createReadStream(file.filename);
+          readstream.pipe(res);
+        } else {
+          res.status(404).json({
+            err: "Not an image",
+          });
+        }
+      });
   });
-
-  // UPLOAD IMAGES
-
-  // let imageRoute = "/profileImage/:filename";
-  // let png = "png";
-  // let jpg = "jpg";
-  // let gif = "gif";
-
-  // app.get(imageRoute, (req, res) => {
-  //   (req.params.filename.includes(png) ||
-  //     req.params.filename.includes(jpg) ||
-  //     req.params.filename.includes(gif)) &&
 };
