@@ -11,8 +11,7 @@ const conn = mongoose.createConnection(mongoURI, {
   useUnifiedTopology: true,
 });
 let gfs;
-let imageCollection =
-  process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
+let imageCollection = "uploads";
 
 conn.once("open", () => {
   gfs = Grid(conn.db, mongoose.mongo);
@@ -29,7 +28,7 @@ const storage = new GridFsStorage({
           return reject(err);
         }
         let bucketNameVar =
-          process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
+          process.env.NODE_ENV === "production" ? "uploads" : "uploads";
         const filename = file.originalname;
         const fileInfo = {
           filename: filename,
