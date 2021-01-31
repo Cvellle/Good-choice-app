@@ -27,8 +27,9 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        let bucketNameVar =
-          process.env.NODE_ENV === "production" ? "uploads" : "uploads";
+        // let bucketNameVar =
+        //   process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
+        let bucketNameVar = "uploads";
         const filename = file.originalname;
         const fileInfo = {
           filename: filename,
@@ -85,7 +86,7 @@ module.exports = function (app) {
 
   // UPLOAD IMAGES
 
-  app.post("/upload", upload.single("files"), (req, res, err) => {
+  app.post("/profileImage/upload", upload.single("files"), (req, res, err) => {
     res.send(req.files);
   });
 

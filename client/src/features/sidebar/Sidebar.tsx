@@ -28,7 +28,7 @@ export const Sidebar: React.FC = () => {
       }
     };
 
-    fetch("/upload", {
+    fetch("/profileImage/upload", {
       method: "POST",
       body: data,
     })
