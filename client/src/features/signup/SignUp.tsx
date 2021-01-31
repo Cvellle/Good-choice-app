@@ -95,7 +95,7 @@ export const SignUp: React.FC = () => {
           } = props;
           return (
             <form onSubmit={handleSubmit}>
-              <label htmlFor="firstName" style={{ display: 'block' }}>
+              <label htmlFor="firstName" style={{ display: 'block', height: '2.5vh' }}>
                 First name
             </label>
               <input
@@ -105,16 +105,17 @@ export const SignUp: React.FC = () => {
                 value={values.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.firstName && touched.firstName ? 'text-input error' : 'text-input'
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '15px', textAlign: 'center' }}>
+              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>
                 {errors.firstName && touched.firstName && (
                   <div className="input-feedback">{errors.firstName}</div>
                 )}
               </p>
-              <label htmlFor="firstName" style={{ display: 'block' }}>
+              <label htmlFor="firstName" style={{ display: 'block', height: '2.5vh' }}>
                 Last name
               </label>
               <input
@@ -124,16 +125,17 @@ export const SignUp: React.FC = () => {
                 value={values.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '15px', textAlign: 'center' }}>
+              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>
                 {errors.lastName && touched.lastName && (
                   <div className="input-feedback">{errors.lastName}</div>
                 )}
               </p>
-              <label htmlFor="email" style={{ display: 'block' }}>
+              <label htmlFor="email" style={{ display: 'block', height: '2.5vh' }}>
                 Email
             </label>
               <input
@@ -143,14 +145,15 @@ export const SignUp: React.FC = () => {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.email && touched.email ? 'text-input error' : 'text-input'
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '15px', textAlign: 'center' }}>{errors.email && touched.email && (
+              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>{errors.email && touched.email && (
                 <div className="input-feedback">{errors.email}</div>
               )}</p>
-              <label htmlFor="password" style={{ display: 'block' }}>
+              <label htmlFor="password" style={{ display: 'block', height: '2.5vh' }}>
                 Password
               </label>
               <input
@@ -161,11 +164,12 @@ export const SignUp: React.FC = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.password && touched.password ? 'text-input error' : 'text-input'
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '15px', textAlign: 'center' }}>
+              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>
                 {errors.password && touched.password && (
                   <div className="input-feedback">{errors.password}</div>
                 )}
@@ -176,6 +180,7 @@ export const SignUp: React.FC = () => {
                 value={values.role}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.role && touched.role ? 'text-input error' : 'text-input'
                 }
@@ -187,6 +192,7 @@ export const SignUp: React.FC = () => {
                 value={values.registrationKey}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.registrationKey && touched.registrationKey ? 'text-input error' : 'text-input'
                 }
@@ -198,6 +204,7 @@ export const SignUp: React.FC = () => {
                 value={values.image}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                style={{ height: '2.5vh' }}
                 className={
                   errors.image && touched.image ? 'text-input error' : 'text-input'
                 }

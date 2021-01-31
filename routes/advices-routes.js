@@ -89,7 +89,7 @@ module.exports = function (app) {
     res.send(req.files);
   });
 
-  let imageRoute = "/:filename";
+  let imageRoute = "/profileImage/:filename";
   let png = "png";
   let jpg = "jpg";
   let gif = "gif";

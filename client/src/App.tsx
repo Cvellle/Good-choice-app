@@ -7,6 +7,7 @@ import { SignUp } from './features/signup/SignUp';
 import { Login } from './features/login/Login';
 import { Dashboard } from './features/dashboard/Dashboard';
 import { AddItems } from './features/dashboard/AddItems';
+import { MyProfile } from './features/myprofile/MyProfile';
 import './App.css';
 import PrivateRoute from './features/login/privateroute/privateroute';
 import { Sidebar } from './features/sidebar/Sidebar'
@@ -36,6 +37,7 @@ function App() {
         <Route component={Login} exact path="/login" />
         <PrivateRoute component={Dashboard} isAuth={adminBoolean || beginnerUserBoolean || advancedUserBoolean} redirectPath="/login" path="/" exact />
         <PrivateRoute component={AddItems} isAuth={adminBoolean || advancedUserBoolean} redirectPath="/" path="/add-new" exact />
+        <PrivateRoute component={MyProfile} isAuth={adminBoolean || advancedUserBoolean} redirectPath="/" path="/myprofile" exact />
       </BrowserRouter>
     </div>
   );

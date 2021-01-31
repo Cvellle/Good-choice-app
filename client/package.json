@@ -25,6 +25,7 @@
     "expo-file-system": "^9.3.0",
     "expo-secure-store": "^9.3.0",
     "formik": "^2.2.6",
+    "loadash": "^1.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.1",

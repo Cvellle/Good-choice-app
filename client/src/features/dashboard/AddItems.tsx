@@ -51,7 +51,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
       ...advice,
       id: currentMilliseconds,
       [id]: value,
-      creator: loggedUserSelector.email
+      creator: `${loggedUserSelector.email}/n${loggedUserSelector.firstName}/n${loggedUserSelector.image}`
     });
   };
 
@@ -61,7 +61,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
     setAdvice({
       ...advice,
       id: advice.id + 1,
-      creator: loggedUserSelector.email
+      creator: `${loggedUserSelector.email}/n${loggedUserSelector.firstName}/n${loggedUserSelector.image}`
     });
     history.push('/');
   };

@@ -1,7 +1,7 @@
 .sidebarGrid {
   position: fixed;
-  top: 25vw;
   display: flex;
+  top: 25vw;
   align-items: center;
   justify-content: start;
   flex-wrap: wrap;
@@ -20,11 +20,11 @@
 
 @media screen and (min-width: 1025px) {
   .sidebarGrid {
-    top: 0;
+    top: 0vh;
     width: 14vw;
     height: 100vh;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
   }
 }
 
@@ -43,7 +43,7 @@
   .profileWrapper {
     align-items: unset;
     width: 13vw;
-    padding-top: 9.6vw;
+    padding-top: 5vh;
   }
 }
 

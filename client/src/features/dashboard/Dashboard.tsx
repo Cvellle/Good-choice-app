@@ -77,10 +77,6 @@ export const Dashboard: React.FC = () => {
     setOpen(false);
   };
 
-  const filterByCategory = (filterArg: string) => {
-    categoryAdvicesAction(filterArg);
-  };
-
   useEffect(() => {
     loggedUserSelector.role == 'USER_BEGINNER' && handleClickOpen()
     dispatch(initialLoadItems());
@@ -125,7 +121,7 @@ export const Dashboard: React.FC = () => {
     }
 
     useEffect(() => {
-      getItemCreatorInfo(advice.creator)
+      getItemCreatorInfo(advice.creator.split('/n')[0])
     }, [])
 
 
@@ -135,20 +131,26 @@ export const Dashboard: React.FC = () => {
           <div className="advice-item">
             <Paper className={classes.paper}>
               <b>Title</b>
-              <p>{advice.name}</p>
+              <p className="itemName">{advice.name}</p>
               <b>Location</b>
-              <p>{advice.location}</p>
-              <b>Category</b>
-              <p>{advice.category.split(",").map(el => <span onClick={() => dispatch(categoryAdvicesAction(el))}>{el}</span>)}</p>
+              <p className="itemLocation">{advice.location}</p>
+              <div className="categoriesDiv">
+                <b>Category</b>
+                <p>{advice.category.split(",").map(el => <span onClick={() => dispatch(categoryAdvicesAction(el))}>{el}</span>)}</p>
+              </div>
               <p><span><b>Likes: </b></span>{advice.likes.length}</p>
+              <div className="creatorInfo">
+                <div>By:</div>
+                <div>{advice.creator.split('/n')[1]}</div>
+                <div className="imageWrapper">
+                  <img src={`./profileImage/${advice.creator.split('/n')[2]}`} />
+                </div>
+              </div>
             </Paper>
-            <i className="fa fa-thumbs-o-up" style={advice.likes.includes(loggedUserSelector.email) ? { color: "green" } : { color: "unset" }}
+            <i className="fa fa-thumbs-o-up" style={advice.likes.includes(loggedUserSelector.email) ?
+              { color: "green" } : { color: "unset" }}
               onClick={(e: React.MouseEvent) => likeFunction(e, advice, user)}>
             </i>
-            <span className="creatorInfo">
-              By: <img src={`./${creatorImage.image}`} />
-              <p>{creatorImage.firstName}</p>
-            </span>
           </div>
         </Grid>
       </React.Fragment>
@@ -168,7 +170,7 @@ export const Dashboard: React.FC = () => {
   )
 
   return (
-    <div>
+    <div className="dashboard">
       <div className="flex-wrapper advice-list">
         <Grid container spacing={0} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <Grid container spacing={2} className="filterAdvices" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

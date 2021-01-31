@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import useReactRouter from 'use-react-router';
@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import { debounce } from "lodash";
 
 import {
   loggedUser,
@@ -15,13 +16,8 @@ import {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 0,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
+      flexGrow: 0
+    }
   }),
 );
 
@@ -30,12 +26,31 @@ export default function Header() {
   const loggedUserSelector = useSelector(loggedUser);
   const classes = useStyles();
 
+  const [showHeader, setShowHeader] = React.useState(false);
+
+  const didScrollPage = (e: any) => {
+    const headerStickyOffset = 200;
+    if (window.scrollY > headerStickyOffset) {
+      setShowHeader(true);
+    } else {
+      setShowHeader(false);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("scroll", debounce(didScrollPage, 100));
+
+    return () => {
+      window.removeEventListener("keydown", didScrollPage);
+    };
+  }, []);
+
   function onLogout() {
     dispatch(logOutUser())
   };
 
   return (
-    <div className="App-header">
+    <div className={`App-header ${showHeader ? "smaller" : "bigger"}`}>
       {(loggedUserSelector.role !== "") ? (
         <div className={classes.root} style={{ width: '90%' }}>
           <Grid container spacing={0}>
