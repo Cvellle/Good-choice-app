@@ -28,7 +28,7 @@ export const Sidebar: React.FC = () => {
       }
     };
 
-    fetch("/profileImage/upload", {
+    fetch("/upload", {
       method: "POST",
       body: data,
     })
@@ -39,7 +39,7 @@ export const Sidebar: React.FC = () => {
           lastName: loggedUserSelector.lastName,
           email: loggedUserSelector.email,
           role: loggedUserSelector.role,
-          image: image[0].name
+          image: image && image[0].name
         }))
       }
       )

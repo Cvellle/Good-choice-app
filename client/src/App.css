@@ -8,11 +8,12 @@ body {
 .App {
   padding-top: 0vh;
   text-align: center;
-  min-height: 75vh;
+  min-height: 100vh;
 }
 
 @media screen and (min-width: 768px) {
   .App {
+    min-height: 100vh;
   }
 }
 
@@ -422,7 +423,39 @@ body {
 
 .login,
 .signup {
-  margin-top: 4vw;
+  margin-top: 50vw;
+}
+
+@media screen and (min-width: 768px) {
+  .login,
+  .signup {
+    margin-top: 40vw;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .login,
+  .signup {
+    margin-top: 4vw;
+  }
+}
+
+.login input {
+  height: 4vw;
+}
+
+@media screen and (min-width: 768px) {
+  .login,
+  input {
+    height: 1.4vw;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .login,
+  input {
+    height: unset;
+  }
 }
 
 .login label,

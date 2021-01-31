@@ -10,15 +10,17 @@ const conn = mongoose.createConnection(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 let gfs;
 let imageCollection = "uploads";
 
 conn.once("open", () => {
   gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection(imageCollection);
+  gfs.collection("uploads");
   console.log("Connection Successful");
 });
 
+// Create storage engine
 const storage = new GridFsStorage({
   url: mongoURI,
   file: (req, file) => {
@@ -27,13 +29,10 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
-        // let bucketNameVar =
-        //   process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
-        let bucketNameVar = "uploads";
         const filename = file.originalname;
         const fileInfo = {
           filename: filename,
-          bucketName: bucketNameVar,
+          bucketName: "uploads",
         };
         resolve(fileInfo);
       });
@@ -84,39 +83,40 @@ module.exports = function (app) {
     });
   });
 
-  // UPLOAD IMAGES
-
-  app.post("/profileImage/upload", upload.single("files"), (req, res, err) => {
+  app.post("/upload", upload.single("files"), (req, res, err) => {
     res.send(req.files);
   });
 
-  let imageRoute = "/profileImage/:filename";
-  let png = "png";
-  let jpg = "jpg";
-  let gif = "gif";
-
-  app.get(imageRoute, (req, res) => {
-    (req.params.filename.includes(png) ||
-      req.params.filename.includes(jpg) ||
-      req.params.filename.includes(gif)) &&
-      gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-        if (!file || file.length === 0) {
-          return res.status(404).json({
-            err: "No file exists",
-          });
-        }
-        if (
-          file.contentType === "image/jpeg" ||
-          file.contentType === "image/png" ||
-          file.contentType === "image/gif"
-        ) {
-          const readstream = gfs.createReadStream(file.filename);
-          readstream.pipe(res);
-        } else {
-          res.status(404).json({
-            err: "Not an image",
-          });
-        }
-      });
+  app.get("/profileImage/:filename", (req, res) => {
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+      if (!file || file.length === 0) {
+        return res.status(404).json({
+          err: "No file exists",
+        });
+      }
+      if (
+        file.contentType === "image/jpeg" ||
+        file.contentType === "image/png"
+      ) {
+        const readstream = gfs.createReadStream(file.filename);
+        readstream.pipe(res);
+      } else {
+        res.status(404).json({
+          err: "Not an image",
+        });
+      }
+    });
   });
+
+  // UPLOAD IMAGES
+
+  // let imageRoute = "/profileImage/:filename";
+  // let png = "png";
+  // let jpg = "jpg";
+  // let gif = "gif";
+
+  // app.get(imageRoute, (req, res) => {
+  //   (req.params.filename.includes(png) ||
+  //     req.params.filename.includes(jpg) ||
+  //     req.params.filename.includes(gif)) &&
 };
