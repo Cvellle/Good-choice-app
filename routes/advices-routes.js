@@ -11,7 +11,8 @@ const conn = mongoose.createConnection(mongoURI, {
   useUnifiedTopology: true,
 });
 let gfs;
-let imageCollection = "uploads";
+let imageCollection =
+  process.env.NODE_ENV === "production" ? "uploads-prod" : "uploads";
 
 conn.once("open", () => {
   gfs = Grid(conn.db, mongoose.mongo);
