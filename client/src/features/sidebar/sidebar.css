@@ -13,6 +13,7 @@
 
 @media screen and (min-width: 768px) {
   .sidebarGrid {
+    top: 23vw;
     width: 100vw;
     height: 14vw;
   }

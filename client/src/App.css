@@ -6,7 +6,7 @@ body {
 }
 
 .App {
-  padding-top: 25vh;
+  padding-top: 0vh;
   text-align: center;
   min-height: 75vh;
 }
@@ -51,14 +51,18 @@ body {
   }
 }
 
-.App-header.smaller {
-  transform: translateY(-8vh);
-  transition: 1s;
+@media screen and (min-width: 1025px) {
+  .App-header.smaller {
+    transform: translateY(-8vh);
+    transition: 1s;
+  }
 }
 
-.App-header.bigger {
-  transition: 1s;
-  box-shadow: 0 1vw 0 rgb(82, 54, 90), 0 2vw 0 rgb(116, 40, 119);
+@media screen and (min-width: 1025px) {
+  .App-header.bigger {
+    transition: 1s;
+    box-shadow: 0 1vw 0 rgb(82, 54, 90), 0 2vw 0 rgb(116, 40, 119);
+  }
 }
 
 .App-header > :first-child > * {
@@ -89,7 +93,11 @@ body {
 }
 
 .App-header span {
-  margin: 0vw;
+  display: inline-flex;
+  align-content: center;
+  align-items: center;
+  margin: 2vw 0vw;
+  height: 5vw;
 }
 
 @media screen and (min-width: 1025px) {
@@ -102,12 +110,12 @@ body {
 }
 
 .dashboard {
-  padding-top: 5vw;
+  padding-top: 65vw;
 }
 
 @media screen and (min-width: 768px) {
   .dashboard {
-    padding-top: 25vw;
+    padding-top: 55vw;
   }
 }
 
