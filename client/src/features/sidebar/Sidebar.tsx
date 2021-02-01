@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -16,6 +16,13 @@ export const Sidebar: React.FC = () => {
 
   const [image, setImage] = useState<any>();
   const [loadingSpinner, setLoadingSpinner] = useState<boolean>(false);
+  const [profileImageUrl, setProfileImageUrl] = useState<string>(
+    loggedUserSelector.image
+  );
+
+  useEffect(() => {
+    profileImageUrl && setLoadingSpinner(false);
+  }, [profileImageUrl]);
 
   const onSubmitImage = async (e: React.FormEvent) => {
     setLoadingSpinner(true);
@@ -54,7 +61,10 @@ export const Sidebar: React.FC = () => {
         });
       })
       .then(() => {
-        setLoadingSpinner(false);
+        setProfileImageUrl(image[0].name);
+      })
+      .then(() => {
+        // setLoadingSpinner(false);
       });
   };
 
@@ -79,7 +89,7 @@ export const Sidebar: React.FC = () => {
                   <img
                     src={
                       loggedUserSelector.image !== " "
-                        ? `./profileImage/${loggedUserSelector.image}`
+                        ? `./profileImage/${profileImageUrl}`
                         : noImagePicture
                     }
                     alt=""

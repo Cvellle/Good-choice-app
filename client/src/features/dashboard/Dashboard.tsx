@@ -146,7 +146,7 @@ export const Dashboard: React.FC = () => {
                   ))}
                 </p>
               </div>
-              <p>
+              <p className="likes">
                 <span>
                   <b>Likes: </b>
                 </span>

@@ -43,7 +43,7 @@ module.exports = function (app) {
 
     var mailOptions = {
       from: "n.cuekisa@gmail.com",
-      to: "cuekisa@yahoo.com",
+      to: req.body.email,
       subject: "Konfirmacija - Good Choice",
       html: `<h3 style="color:red">Dobrodošli na Good Choice!</h3> <br>
       Zahvaljujemo se na registraciji.<br><br>

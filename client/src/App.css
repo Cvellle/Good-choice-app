@@ -38,6 +38,7 @@ body {
   height: 25vw;
   min-height: unset;
   z-index: 2;
+  transition: 0.7s;
 }
 
 @media screen and (min-width: 768px) {
@@ -55,13 +56,12 @@ body {
 @media screen and (min-width: 1025px) {
   .App-header.smaller {
     transform: translateY(-8vh);
-    transition: 1s;
   }
 }
 
 @media screen and (min-width: 1025px) {
   .App-header.bigger {
-    transition: 1s;
+    transition: 0.7s;
     box-shadow: 0 1vw 0 rgb(82, 54, 90), 0 2vw 0 rgb(116, 40, 119);
   }
 }
@@ -97,8 +97,9 @@ body {
   display: inline-flex;
   align-content: center;
   align-items: center;
-  margin: 2vw 0vw;
+  margin: 2vw 1vw;
   height: 5vw;
+  font-size: 4vw;
 }
 
 @media screen and (min-width: 1025px) {
@@ -107,6 +108,7 @@ body {
     display: inline-flex;
     align-items: center;
     height: 2vw;
+    font-size: 1.7vw;
   }
 }
 
@@ -139,6 +141,7 @@ body {
 
 @media screen and (min-width: 768px) {
   .allButton {
+    font-size: 3vw;
   }
 }
 
@@ -146,6 +149,7 @@ body {
   .allButton {
     height: 3vw;
     border-radius: 0.5vw;
+    font-size: 1.2vw;
   }
 }
 
@@ -161,21 +165,18 @@ body {
   justify-content: center;
   height: 10vw;
   border-radius: 1vw;
-  cursor: pointer;
   transition: 0.3s;
   opacity: 0.6;
   width: 100%;
   border: none;
   padding: 0 0 0 4vw;
-  width: calc(100% - 4vw);
+  width: calc(100%);
   box-sizing: border-box;
-  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
   .filterAdvices .filterInput {
-    padding: 0 0 0 3vw;
-    width: calc(100% - 3vw);
+    font-size: 3vw;
   }
 }
 
@@ -256,7 +257,6 @@ body {
 
 @media screen and (min-width: 768px) {
   .advice-item > :first-child {
-    height: 85vw;
     margin-bottom: 4vw;
   }
 }
@@ -278,6 +278,24 @@ body {
   flex: 1 100%;
 }
 
+.advice-item > :first-child > :nth-child(odd),
+.advice-item .likes {
+}
+
+@media screen and (min-width: 768px) {
+  .advice-item > :first-child > :nth-child(odd),
+  .advice-item .likes {
+    font-size: 3.5vw;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .advice-item > :first-child > :nth-child(odd),
+  .advice-item .likes {
+    font-size: 1.3vw;
+  }
+}
+
 .advice-item > :first-child > :nth-child(even):not(:nth-child(6)) {
   display: flex;
   align-items: center;
@@ -291,7 +309,7 @@ body {
 @media screen and (min-width: 768px) {
   .advice-item > :first-child > :nth-child(even):not(:nth-child(6)) {
     height: 12vw;
-    font-size: 3vw;
+    font-size: 3.5vw;
   }
 }
 
@@ -338,7 +356,7 @@ body {
     padding: 1vw;
     margin: 0.5vw;
     height: 5vw;
-    width: 10vw;
+    width: 15vw;
     font-size: 2.5vw;
   }
 }
