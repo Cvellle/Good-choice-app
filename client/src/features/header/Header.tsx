@@ -1,24 +1,21 @@
 import React, { Component, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import useReactRouter from 'use-react-router';
-import Grid from '@material-ui/core/Grid';
-import HomeIcon from '@material-ui/icons/Home';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
+import { useSelector, useDispatch } from "react-redux";
+import useReactRouter from "use-react-router";
+import Grid from "@material-ui/core/Grid";
+import HomeIcon from "@material-ui/icons/Home";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 import { debounce } from "lodash";
 
-import {
-  loggedUser,
-  logOutUser
-} from '../login/loginSlice';
+import { loggedUser, logOutUser } from "../login/loginSlice";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      flexGrow: 0
-    }
-  }),
+      flexGrow: 0,
+    },
+  })
 );
 
 export default function Header() {
@@ -46,31 +43,41 @@ export default function Header() {
   }, []);
 
   function onLogout() {
-    dispatch(logOutUser())
-  };
+    dispatch(logOutUser());
+  }
 
   return (
     <div className={`App-header ${showHeader ? "smaller" : "bigger"}`}>
-      {(loggedUserSelector.role !== "") ? (
-        <div className={classes.root} style={{ width: '90%' }}>
+      {loggedUserSelector.role !== "" ? (
+        <div className={classes.root} style={{ width: "90%" }}>
           <Grid container spacing={0}>
             <Grid item xs={6}>
-              <Box display="flex" justifyContent="flex-start" style={{ display: "flex" }}>
+              <Box
+                display="flex"
+                justifyContent="flex-start"
+                style={{ display: "flex" }}
+              >
                 <span>
-                  <Link to="/" style={{ textDecoration: 'none' }}>
+                  <Link to="/" style={{ textDecoration: "none" }}>
                     <HomeIcon style={{ transform: "scale(1.3)" }} />
                   </Link>
                 </span>
                 {loggedUserSelector.role !== "USER_BEGINNER" && (
                   <span>
-                    <Link to="/add-new" style={{ textDecoration: 'none' }}>
+                    <Link to="/add-new" style={{ textDecoration: "none" }}>
                       Add new advice
                     </Link>
-                  </span>)}
+                  </span>
+                )}
               </Box>
             </Grid>
             <Grid item xs={6}>
               <Box display="flex" justifyContent="flex-end">
+                <span>
+                  <Link to="/myprofile" style={{ textDecoration: "none" }}>
+                    My profile
+                  </Link>
+                </span>
                 <span onClick={onLogout}>
                   <Link to="/login" style={{ textDecoration: "none" }}>
                     Log out
@@ -81,15 +88,25 @@ export default function Header() {
           </Grid>
         </div>
       ) : (
-          <div>
-            <span>
-              <Link to="/signup" style={{ textDecoration: 'none', color: 'white' }}>SignUp</Link>
-            </span>
-            <span>
-              <Link to="/login" style={{ textDecoration: 'none', color: 'white' }}>Login</Link>
-            </span>
-          </div>
-        )}
+        <div>
+          <span>
+            <Link
+              to="/signup"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              SignUp
+            </Link>
+          </span>
+          <span>
+            <Link
+              to="/login"
+              style={{ textDecoration: "none", color: "white" }}
+            >
+              Login
+            </Link>
+          </span>
+        </div>
+      )}
     </div>
   );
 }

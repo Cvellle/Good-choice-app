@@ -81,8 +81,8 @@ module.exports = function (app) {
   });
 
   app.delete(`/api/${usersCollection}`, (req, res) => {
-    const { id } = req.body;
-    Data.findOneAndDelete(id, (err) => {
+    const { email } = req.body;
+    Data.findOneAndDelete(email, (err) => {
       if (err) return res.send(err);
       return res.json({ success: true });
     });

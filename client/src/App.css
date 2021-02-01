@@ -533,3 +533,47 @@ form button:active {
     padding-left: 0.5vw;
   }
 }
+
+.deleteDiv {
+  display: flex;
+}
+
+.deleteDiv button {
+  margin-left: auto;
+  margin-top: 4vw;
+  margin-right: 10vw;
+  height: 8vw;
+  width: 20vw;
+  background: rgb(177, 8, 8);
+  color: white;
+  border-radius: 1vw;
+  border: 0.1vw solid black;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 7vw;
+}
+
+@media screen and (min-width: 768px) {
+  .deleteDiv button {
+    height: 4vw;
+    width: 10vw;
+    margin-bottom: 3vw;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .deleteDiv button {
+    margin-top: 0vw;
+    margin-right: 4.8vw;
+    height: 2.5vw;
+    width: 8vw;
+    border-radius: 0.5vw;
+    font-size: 1.3vw;
+    margin-bottom: 0vw;
+  }
+}
+
+.deleteDiv button:hover {
+  opacity: 0.7;
+  transition: 0.3s;
+}
