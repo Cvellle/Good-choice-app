@@ -78,8 +78,10 @@ export const MyProfile: React.FC = () => {
 
   return (
     <div className="signup">
-      <div className="deleteDiv" onClick={handleClickOpen}>
-        <button type="submit">Delete</button>
+      <div className="deleteDiv">
+        <button type="submit" onClick={handleClickOpen}>
+          Delete
+        </button>
       </div>
       <Dialog
         fullScreen={fullScreen}
