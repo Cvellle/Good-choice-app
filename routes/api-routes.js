@@ -52,30 +52,8 @@ module.exports = function (app) {
       `,
     };
 
-    var mailOptions2 = {
-      from: "n.cuekisa@gmail.com",
-      to: "cuekisa@yahoo.com",
-      subject: "Konfirmacija - Good Choice",
-      html: `<h3 style="color:red">Dobrodošli na Good Choice!</h3> <br>
-      Zahvaljujemo se na registraciji.<br><br>
-      <b>Ulogujte se i uživajte, nastavite ka sajtu klikom na <a href="${link}/login">LINK</a>
-      <hr>
-      `,
-    };
-
     transporter
       .sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      })
-      .then(() => console.log("Email sent successfully."))
-      .catch((error) => console.log(error));
-
-    transporter
-      .sendMail(mailOptions2, function (error, info) {
         if (error) {
           console.log(error);
         } else {
