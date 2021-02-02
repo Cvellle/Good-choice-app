@@ -526,20 +526,22 @@ form button:active {
 }
 
 .Add-advice {
-  padding-top: 70vw;
+  padding-top: 50vw;
   display: flex;
   justify-content: center;
 }
 
 @media screen and (min-width: 768px) {
   .Add-advice {
-    padding-top: 60vw;
+    padding-top: 40vw;
+    font-size: 3vw;
   }
 }
 
 @media screen and (min-width: 1025px) {
   .Add-advice {
     padding-top: 2vh;
+    font-size: unset;
   }
 }
 
@@ -552,11 +554,32 @@ form button:active {
   padding-left: 1.5vw;
 }
 
+@media screen and (min-width: 768px) {
+  .Add-advice input {
+    font-size: 3vw;
+  }
+}
+
 @media screen and (min-width: 1025px) {
   .Add-advice input {
     height: 2vw;
     width: 20vw;
     padding-left: 0.5vw;
+    font-size: 1vw;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .Add-advice button {
+    font-size: 3vw;
+    width: 25vw;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .Add-advice button {
+    width: unset;
+    font-size: 1vw;
   }
 }
 
@@ -594,7 +617,7 @@ form button:active {
 
 @media screen and (min-width: 1025px) {
   .Add-advice form > div {
-    margin-bottom: 3.5vw;
+    margin-bottom: 1.5vw;
   }
 }
 
@@ -609,7 +632,6 @@ form button:active {
 
 .addedCategoriesDiv {
   margin-top: 4vw;
-
   display: flex;
   min-height: 8vw;
   width: 100vw;

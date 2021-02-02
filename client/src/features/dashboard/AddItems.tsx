@@ -82,6 +82,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
         <div>
           <input type="hidden" id="id" placeholder="Id" value={advice.id} />
         </div>
+        <p>Name:</p>
         <div>
           <input
             type="text"
@@ -90,6 +91,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
             onChange={handleAdviceData}
           />
         </div>
+        <p>Location:</p>
         <div>
           <input
             type="text"
@@ -98,12 +100,13 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
             onChange={handleAdviceData}
           />
         </div>
+        <p>Categories:</p>
         <div className="categoriesInputs">
           <input
             className="addedCategoriesInput"
             type="text"
             id="inputCategory"
-            placeholder="Add new category top the list"
+            placeholder="Add new category to the list"
             onChange={(
               e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
             ) => setAddCategoriesInput(e.currentTarget.value)}
