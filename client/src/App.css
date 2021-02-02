@@ -3,6 +3,7 @@ body {
   background-repeat: repeat, repeat;
   background: url("./images/hex.png") repeat;
   background-size: contain;
+  overflow-y: visible;
 }
 
 .App {

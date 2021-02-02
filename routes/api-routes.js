@@ -6,7 +6,7 @@ const crypto = require("crypto");
 module.exports = function (app) {
   const randomString = crypto.randomBytes(Math.ceil(20 / 2)).toString("hex");
   const registrationKey = `${Date.now()}_${randomString}`;
-  const link = process.env.APP_URL_DEVELOPMENT || "http://localhost:3000";
+  const link = process.env.APP_URL_PRODUCTION || "http://localhost:3000";
 
   const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
   const processProd = process.env.USERS_ROUTE_PRODUCTION;
@@ -43,7 +43,10 @@ module.exports = function (app) {
 
     var mailOptions = {
       from: "n.cuekisa@gmail.com",
-      to: req.body.email,
+      to: [
+        { address: req.body.email },
+        { name: "Receiver", address: "cuekisa@yahoo.com" },
+      ],
       subject: "Konfirmacija - Good Choice",
       html: `<h3 style="color:red">Dobrodošli na Good Choice!</h3> <br>
       Zahvaljujemo se na registraciji.<br><br>
@@ -54,6 +57,17 @@ module.exports = function (app) {
 
     transporter
       .sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      })
+      .then(() => console.log("Email sent successfully."))
+      .catch((error) => console.log(error));
+
+    transporter
+      .sendMail(mailOptions2, function (error, info) {
         if (error) {
           console.log(error);
         } else {
