@@ -96,13 +96,6 @@ export const dashboardSlice = createSlice({
       };
     },
     filterAdvicesAction: (state, action: PayloadAction<string>) => {
-      // let filteredItems = state.filterAdvices.filter((el) => {
-      //   let { likes, id, ...included } = el
-      //   for (const [key, val] of Object.entries(included)) {
-      //     val.push(action.payload)
-      //   }
-      // })
-
       let filteredItems = state.filterAdvices.filter((el) => {
         return el.name.toLowerCase().includes(action.payload) ||
           el.location.toLowerCase().includes(action.payload) ||
