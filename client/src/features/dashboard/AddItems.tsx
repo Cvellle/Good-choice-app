@@ -39,6 +39,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
     category: categoriesState.join(","),
     likes: [],
   });
+  const [validationState, setValidationState] = useState<boolean>(false);
 
   const handleAdviceData = (
     e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -46,22 +47,25 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
     const { id, value } = e.currentTarget;
     const date = new Date();
     let currentMilliseconds = date.getTime();
+    let filteredCat = categoriesState.filter((el) => el.trim() !== "");
     setAdvice({
       ...advice,
       id: currentMilliseconds,
       [id]: value,
-      category: categoriesState && categoriesState.join(","),
+      category: filteredCat.join(","),
       creator: `${loggedUserSelector.email}/n${loggedUserSelector.firstName}/n${loggedUserSelector.image}`,
     });
   };
 
   const addNewAdvice = (e: React.FormEvent) => {
     e.preventDefault();
+    let filteredCat = categoriesState.filter((el) => el.trim() !== "");
+
     dispatch(addItems(advice));
     setAdvice({
       ...advice,
       id: advice.id + 1,
-      category: categoriesState.join(","),
+      category: filteredCat.join(",").trim(),
       creator: `${loggedUserSelector.email}/n${loggedUserSelector.firstName}/n${loggedUserSelector.image}`,
     });
     history.push("/");
@@ -69,16 +73,22 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
 
   const addCategoryToState = (e: React.FormEvent) => {
     e.preventDefault();
+    let filteredCat = categoriesState.filter((el) => el.trim() !== "");
     setAdvice({
       ...advice,
-      category: [...categoriesState, addCategoriesInput].join(","),
+      category:
+        categoriesState && [...filteredCat, addCategoriesInput].join(","),
     });
-    setCategoriesState([...categoriesState, addCategoriesInput]);
+    setCategoriesState([...categoriesState, addCategoriesInput.trim()]);
   };
+
+  let emptyFields = Object.values(advice).filter((adv) => {
+    return adv === "";
+  });
 
   return (
     <div className="Add-advice">
-      <form onSubmit={addNewAdvice}>
+      <form>
         <div>
           <input type="hidden" id="id" placeholder="Id" value={advice.id} />
         </div>
@@ -109,7 +119,10 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
             placeholder="Add new category to the list"
             onChange={(
               e: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>
-            ) => setAddCategoriesInput(e.currentTarget.value)}
+            ) =>
+              e.currentTarget.value.trim() &&
+              setAddCategoriesInput(e.currentTarget.value.trim())
+            }
           />
           <button
             className="addCategoryButton"
@@ -120,12 +133,27 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
           </button>
         </div>
         <div className="addedCategoriesDiv">
-          {categoriesState.map((cat) => (
-            <span>{cat}</span>
-          ))}
+          {categoriesState.map((cat) => {
+            return cat.trim() && <span>{cat}</span>;
+          })}
         </div>
         <div>
-          <button disabled={advice === undefined}>Add advice</button>
+          <button
+            type="submit"
+            onClick={
+              emptyFields.length > 0
+                ? (e: React.FormEvent) => {
+                    e.preventDefault();
+                    setValidationState(true);
+                  }
+                : addNewAdvice
+            }
+          >
+            Add advice
+          </button>
+        </div>
+        <div style={{ color: "red" }}>
+          {validationState && "All fields must be filled"}
         </div>
       </form>
     </div>

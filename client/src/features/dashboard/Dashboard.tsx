@@ -127,6 +127,8 @@ export const Dashboard: React.FC = () => {
       getItemCreatorInfo(advice.creator.split("/n")[0]);
     }, []);
 
+    let profileImageName = advice.creator.split("/n")[2];
+
     return (
       <React.Fragment>
         <Grid item xs={12} lg={4}>
@@ -156,9 +158,9 @@ export const Dashboard: React.FC = () => {
                 <div>By:</div>
                 <div>{advice.creator.split("/n")[1]}</div>
                 <div className="imageWrapper">
-                  <img
-                    src={`./profileImage/${advice.creator.split("/n")[2]}`}
-                  />
+                  {profileImageName !== " " && (
+                    <img src={`./profileImage/${profileImageName}`} />
+                  )}
                 </div>
               </div>
             </Paper>
