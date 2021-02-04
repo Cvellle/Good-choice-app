@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import loginReducer from '../features/login/loginSlice';
-import dashboardReducer from '../features/dashboard/dashboardSlice';
-
 import storage from 'redux-persist/lib/storage'
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
+
+import loginReducer from '../features/login/loginSlice';
+import dashboardReducer from '../features/dashboard/dashboardSlice';
+
+
 
 const persistConfig = {
   key: 'root',

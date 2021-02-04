@@ -8,11 +8,11 @@ import { Login } from "./features/login/Login";
 import { Dashboard } from "./features/dashboard/Dashboard";
 import { AddItems } from "./features/dashboard/AddItems";
 import { MyProfile } from "./features/myprofile/MyProfile";
-import "./App.css";
 import PrivateRoute from "./features/login/privateroute/privateroute";
 import { Sidebar } from "./features/sidebar/Sidebar";
-
 import { loggedUser } from "./features/login/loginSlice";
+
+import "./App.css";
 
 function App() {
   const loggedUserSelector = useSelector(loggedUser);

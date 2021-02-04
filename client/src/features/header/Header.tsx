@@ -1,7 +1,6 @@
 import React, { Component, MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import useReactRouter from "use-react-router";
 import Grid from "@material-ui/core/Grid";
 import HomeIcon from "@material-ui/icons/Home";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
