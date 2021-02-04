@@ -24,14 +24,12 @@ git clone https://github.com/Cvellle/Good-choice-app.git
 
 ```
 npm install
-
 ```
 
 :rocket:
 
 ```
 npm start
-
 ```
 
 :sparkles:
