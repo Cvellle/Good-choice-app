@@ -2,7 +2,7 @@
 
 Web application for finding good shopping prices and rare and smart things.
 
-## Live at: [(https://goodchoiceapp.herokuapp.com](https://goodchoiceapp.herokuapp.com/signup)
+## Live at: [goodchoiceapp.herokuapp.com](https://goodchoiceapp.herokuapp.com/signup)
 
 ## Stack
 
@@ -14,9 +14,9 @@ Web application for finding good shopping prices and rare and smart things.
 
 **4.** **Node.js** MongoDB, Mongoose, Nodemailer, Multer, Concurrently
 
-```
 :octocat:
 
+```
 git clone https://github.com/Cvellle/Good-choice-app.git
 ```
 
@@ -27,8 +27,9 @@ npm install
 
 ```
 
-```
 :rocket:
+
+```
 npm start
 
 ```
