@@ -112,7 +112,7 @@ export const Login: React.FC = () => {
                 required
                 id="password"
                 placeholder="Enter your password"
-                type="text"
+                type="password"
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
