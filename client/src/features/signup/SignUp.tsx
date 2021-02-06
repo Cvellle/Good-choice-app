@@ -1,44 +1,38 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import useReactRouter from 'use-react-router';
-import axios from 'axios'
-import { Formik } from 'formik'
-import * as yup from 'yup'
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import useReactRouter from "use-react-router";
+import axios from "axios";
+import { Formik } from "formik";
+import * as yup from "yup";
 
-import {
-  setLoggedUser,
-  loggedUser,
-} from '../login/loginSlice';
+import { setLoggedUser, loggedUser } from "../login/loginSlice";
 
 const initialValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  role: 'USER_BEGINNER',
-  registrationKey: ' ',
-  image: ' '
-}
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  role: "USER_BEGINNER",
+  registrationKey: " ",
+  image: " ",
+};
 
 const validationSchema = yup.object().shape({
-  firstName: yup.string().required('First name is required'),
-  lastName: yup.string().required('Last name is required'),
-  email: yup
-    .string()
-    .email('Email is not valid')
-    .required('Email is required'),
-  password: yup.string().required('Password is required.')
-})
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email("Email is not valid").required("Email is required"),
+  password: yup.string().required("Password is required."),
+});
 
 export const SignUp: React.FC = () => {
   const dispatch = useDispatch();
-  const { history } = useReactRouter()
+  const { history } = useReactRouter();
   const loggedUserSelector = useSelector(loggedUser);
 
   useEffect(() => {
-    (loggedUserSelector.role !== "") && history.push('/');
-    (loggedUserSelector.role == "") && history.push('/signup');
-  }, [])
+    loggedUserSelector.role !== "" && history.push("/");
+    loggedUserSelector.role == "" && history.push("/signup");
+  }, []);
 
   const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
   const processProd = process.env.USERS_ROUTE_PRODUCTION;
@@ -50,22 +44,25 @@ export const SignUp: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
-          dispatch(setLoggedUser({
-            id: 0,
-            firstName: "",
-            lastName: "",
-            email: values.email,
-            role: '',
-            image: ''
-          }))
-          axios.get(`/api/${usersCollection}`, {
-            params: {
+          dispatch(
+            setLoggedUser({
+              id: 0,
+              firstName: "",
+              lastName: "",
               email: values.email,
-            }
-          }).then(
-            (res) => {
+              role: "",
+              image: "",
+            })
+          );
+          axios
+            .get(`/api/${usersCollection}`, {
+              params: {
+                email: values.email,
+              },
+            })
+            .then((res) => {
               if (!res.data[0]) {
-                history.push('/login')
+                history.push("/login");
                 axios.post(`/api/${usersCollection}`, {
                   firstName: values.firstName,
                   lastName: values.lastName,
@@ -73,15 +70,14 @@ export const SignUp: React.FC = () => {
                   password: values.password,
                   role: values.role,
                   registrationKey: values.registrationKey,
-                  image: values.image
-                })
+                  image: values.image,
+                });
               }
-            }
-          )
+            });
         }}
         validationSchema={validationSchema}
       >
-        {props => {
+        {(props) => {
           const {
             values,
             touched,
@@ -95,9 +91,12 @@ export const SignUp: React.FC = () => {
           } = props;
           return (
             <form onSubmit={handleSubmit}>
-              <label htmlFor="firstName" style={{ display: 'block', height: '2.5vh' }}>
+              <label
+                htmlFor="firstName"
+                style={{ display: "block", height: "2.5vh" }}
+              >
                 First name
-            </label>
+              </label>
               <input
                 id="firstName"
                 placeholder="Enter your first name"
@@ -105,17 +104,29 @@ export const SignUp: React.FC = () => {
                 value={values.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.firstName && touched.firstName ? 'text-input error' : 'text-input'
+                  errors.firstName && touched.firstName
+                    ? "text-input error"
+                    : "text-input"
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>
+              <p
+                style={{
+                  color: "red",
+                  visibility: "visible",
+                  height: "2vh",
+                  textAlign: "center",
+                }}
+              >
                 {errors.firstName && touched.firstName && (
                   <div className="input-feedback">{errors.firstName}</div>
                 )}
               </p>
-              <label htmlFor="firstName" style={{ display: 'block', height: '2.5vh' }}>
+              <label
+                htmlFor="firstName"
+                style={{ display: "block", height: "2.5vh" }}
+              >
                 Last name
               </label>
               <input
@@ -125,19 +136,31 @@ export const SignUp: React.FC = () => {
                 value={values.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.lastName && touched.lastName ? 'text-input error' : 'text-input'
+                  errors.lastName && touched.lastName
+                    ? "text-input error"
+                    : "text-input"
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>
+              <p
+                style={{
+                  color: "red",
+                  visibility: "visible",
+                  height: "2vh",
+                  textAlign: "center",
+                }}
+              >
                 {errors.lastName && touched.lastName && (
                   <div className="input-feedback">{errors.lastName}</div>
                 )}
               </p>
-              <label htmlFor="email" style={{ display: 'block', height: '2.5vh' }}>
+              <label
+                htmlFor="email"
+                style={{ display: "block", height: "2.5vh" }}
+              >
                 Email
-            </label>
+              </label>
               <input
                 id="email"
                 placeholder="Enter your email"
@@ -145,31 +168,54 @@ export const SignUp: React.FC = () => {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.email && touched.email ? 'text-input error' : 'text-input'
+                  errors.email && touched.email
+                    ? "text-input error"
+                    : "text-input"
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>{errors.email && touched.email && (
-                <div className="input-feedback">{errors.email}</div>
-              )}</p>
-              <label htmlFor="password" style={{ display: 'block', height: '2.5vh' }}>
+              <p
+                style={{
+                  color: "red",
+                  visibility: "visible",
+                  height: "2vh",
+                  textAlign: "center",
+                }}
+              >
+                {errors.email && touched.email && (
+                  <div className="input-feedback">{errors.email}</div>
+                )}
+              </p>
+              <label
+                htmlFor="password"
+                style={{ display: "block", height: "2.5vh" }}
+              >
                 Password
               </label>
               <input
                 required
                 id="password"
                 placeholder="Enter your password"
-                type="text"
+                type="password"
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.password && touched.password ? 'text-input error' : 'text-input'
+                  errors.password && touched.password
+                    ? "text-input error"
+                    : "text-input"
                 }
               />
-              <p style={{ color: 'red', visibility: 'visible', height: '2vh', textAlign: 'center' }}>
+              <p
+                style={{
+                  color: "red",
+                  visibility: "visible",
+                  height: "2vh",
+                  textAlign: "center",
+                }}
+              >
                 {errors.password && touched.password && (
                   <div className="input-feedback">{errors.password}</div>
                 )}
@@ -180,9 +226,11 @@ export const SignUp: React.FC = () => {
                 value={values.role}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.role && touched.role ? 'text-input error' : 'text-input'
+                  errors.role && touched.role
+                    ? "text-input error"
+                    : "text-input"
                 }
                 type="hidden"
               />
@@ -192,9 +240,11 @@ export const SignUp: React.FC = () => {
                 value={values.registrationKey}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.registrationKey && touched.registrationKey ? 'text-input error' : 'text-input'
+                  errors.registrationKey && touched.registrationKey
+                    ? "text-input error"
+                    : "text-input"
                 }
                 type="hidden"
               />
@@ -204,19 +254,21 @@ export const SignUp: React.FC = () => {
                 value={values.image}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: '2.5vh' }}
+                style={{ height: "2.5vh" }}
                 className={
-                  errors.image && touched.image ? 'text-input error' : 'text-input'
+                  errors.image && touched.image
+                    ? "text-input error"
+                    : "text-input"
                 }
                 type="hidden"
               />
               <button type="submit" disabled={isSubmitting}>
                 Sign in
-            </button>
+              </button>
             </form>
           );
         }}
       </Formik>
     </div>
   );
-}
+};
