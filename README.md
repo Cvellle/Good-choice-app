@@ -8,11 +8,11 @@ Web application for finding good shopping prices and rare and smart things.
 
 **1.** **Typescript**
 
-**2.** **Redux** creacteSlice, Redux Thunk, Redux persist
+**2.** **Redux** - creacteSlice, Redux Thunk, Redux persist
 
 **3.** **Material UI** - Grid, Box, Dialog
 
-**4.** **Node.js** MongoDB, Mongoose, Nodemailer, Multer, Concurrently
+**4.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
 
 :octocat:
 
