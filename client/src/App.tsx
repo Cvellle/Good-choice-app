@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
+import { ApolloProvider } from "react-apollo";
 
 import Header from "./features/header/Header";
 import { SignUp } from "./features/signup/SignUp";
@@ -11,7 +13,7 @@ import { MyProfile } from "./features/myprofile/MyProfile";
 import PrivateRoute from "./features/login/privateroute/privateroute";
 import { Sidebar } from "./features/sidebar/Sidebar";
 import { loggedUser } from "./features/login/loginSlice";
-
+import { apolloClient } from "./features/chat/api";
 import "./App.css";
 
 function App() {
@@ -27,43 +29,51 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
-        <PrivateRoute
-          component={Sidebar}
-          isAuth={
-            adminBoolean ||
-            beginnerUserBoolean ||
-            advancedUserBoolean ||
-            advancedUserBoolean
-          }
-          redirectPath="/login"
-          path="/"
-        />
-        <Route component={SignUp} exact path="/signup" />
-        <Route component={Login} exact path="/login" />
-        <PrivateRoute
-          component={Dashboard}
-          isAuth={adminBoolean || beginnerUserBoolean || advancedUserBoolean}
-          redirectPath="/login"
-          path="/"
-          exact
-        />
-        <PrivateRoute
-          component={AddItems}
-          isAuth={adminBoolean || advancedUserBoolean}
-          redirectPath="/login"
-          path="/add-new"
-          exact
-        />
-        <PrivateRoute
-          component={MyProfile}
-          isAuth={beginnerUserBoolean || adminBoolean || advancedUserBoolean}
-          redirectPath="/signup"
-          path="/myprofile"
-          exact
-        />
-      </BrowserRouter>
+      <ApolloProvider client={apolloClient}>
+        <ApolloHooksProvider client={apolloClient}>
+          <BrowserRouter>
+            <Header />
+            <PrivateRoute
+              component={Sidebar}
+              isAuth={
+                adminBoolean ||
+                beginnerUserBoolean ||
+                advancedUserBoolean ||
+                advancedUserBoolean
+              }
+              redirectPath="/login"
+              path="/"
+            />
+            <Route component={SignUp} exact path="/signup" />
+            <Route component={Login} exact path="/login" />
+            <PrivateRoute
+              component={Dashboard}
+              isAuth={
+                adminBoolean || beginnerUserBoolean || advancedUserBoolean
+              }
+              redirectPath="/login"
+              path="/"
+              exact
+            />
+            <PrivateRoute
+              component={AddItems}
+              isAuth={adminBoolean || advancedUserBoolean}
+              redirectPath="/login"
+              path="/add-new"
+              exact
+            />
+            <PrivateRoute
+              component={MyProfile}
+              isAuth={
+                beginnerUserBoolean || adminBoolean || advancedUserBoolean
+              }
+              redirectPath="/signup"
+              path="/myprofile"
+              exact
+            />
+          </BrowserRouter>
+        </ApolloHooksProvider>
+      </ApolloProvider>
     </div>
   );
 }

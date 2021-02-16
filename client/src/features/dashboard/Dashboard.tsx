@@ -23,6 +23,7 @@ import {
 } from "./dashboardSlice";
 import { changeRole, loggedUser } from "../login/loginSlice";
 import "../../App.css";
+import Chat from "../chat/Chat";
 
 interface IAdvice {
   id: number;
@@ -141,8 +142,11 @@ export const Dashboard: React.FC = () => {
               <div className="categoriesDiv">
                 <b>Category</b>
                 <p>
-                  {advice.category.split(",").map((el) => (
-                    <span onClick={() => dispatch(categoryAdvicesAction(el))}>
+                  {advice.category.split(",").map((el, i) => (
+                    <span
+                      key={i}
+                      onClick={() => dispatch(categoryAdvicesAction(el))}
+                    >
                       {el}
                     </span>
                   ))}
@@ -193,6 +197,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard">
+      <Chat />
       <div className="flex-wrapper advice-list">
         <Grid
           container
