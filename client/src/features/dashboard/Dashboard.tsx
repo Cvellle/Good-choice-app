@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useReactRouter from "use-react-router";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -64,7 +64,7 @@ export const Dashboard: React.FC = () => {
   const { history } = useReactRouter();
   const classes = useStyles();
 
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [dialogMessage, setDialogMessage] = useState(
     'Like to turn on new Route \n Like one advice to turn on \n the "Add advices" Route in the header'
   );
@@ -260,7 +260,6 @@ export const Dashboard: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Chat />
     </div>
   );
 };

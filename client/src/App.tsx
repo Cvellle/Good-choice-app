@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
@@ -10,11 +10,13 @@ import { Login } from "./features/login/Login";
 import { Dashboard } from "./features/dashboard/Dashboard";
 import { AddItems } from "./features/dashboard/AddItems";
 import { MyProfile } from "./features/myprofile/MyProfile";
-import PrivateRoute from "./features/login/privateroute/privateroute";
+import Chat from "./features/chat/Chat";
 import { Sidebar } from "./features/sidebar/Sidebar";
+import PrivateRoute from "./features/login/privateroute/privateroute";
 import { loggedUser } from "./features/login/loginSlice";
 import { apolloClient } from "./features/chat/api";
 import "./App.css";
+import chatImage from "./images/chat.png";
 
 function App() {
   const loggedUserSelector = useSelector(loggedUser);
@@ -22,6 +24,12 @@ function App() {
   let adminBoolean = false;
   let beginnerUserBoolean = false;
   let advancedUserBoolean = false;
+
+  const [chatVisible, setChatVisible] = useState<boolean>(false);
+
+  const toggleChat = () => {
+    setChatVisible(!chatVisible);
+  };
 
   userRole == "ADMIN" && (adminBoolean = true);
   userRole == "USER_BEGINNER" && (beginnerUserBoolean = true);
@@ -70,6 +78,22 @@ function App() {
               redirectPath="/signup"
               path="/myprofile"
               exact
+            />
+
+            <div
+              style={
+                chatVisible &&
+                (beginnerUserBoolean || adminBoolean || advancedUserBoolean)
+                  ? { display: "flex" }
+                  : { display: "none" }
+              }
+            >
+              <Chat />
+            </div>
+            <img
+              src={chatImage}
+              className="chatImage"
+              onClick={() => toggleChat()}
             />
           </BrowserRouter>
         </ApolloHooksProvider>

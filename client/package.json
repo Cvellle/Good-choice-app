@@ -44,6 +44,8 @@
     "react-scripts": "4.0.1",
     "redux-persist": "^6.0.0",
     "styled-components": "^5.2.1",
+    "styled-components-breakpoint": "^3.0.0-preview.20",
+    "styled-components-breakpoints": "^1.0.0",
     "subscriptions-transport-ws": "0.9.16",
     "typescript": "~3.8.2",
     "use-history": "^1.4.1",

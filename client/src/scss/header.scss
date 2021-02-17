@@ -1,0 +1,78 @@
+.App-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  background: rgb(54, 52, 52);
+  color: white;
+  height: 25vw;
+  min-height: unset;
+  z-index: 2;
+  transition: 0.7s;
+
+  @include tablet {
+    height: 23vw;
+  }
+
+  @include desktop {
+    height: 17vh;
+  }
+
+  &.smaller {
+    @include desktop {
+      transform: translateY(-3vh);
+    }
+  }
+
+  &.bigger {
+    @include desktop {
+      transition: 0.7s;
+      box-shadow: 0 1vw 0 rgb(82, 54, 90), 0 2vw 0 rgb(116, 40, 119);
+    }
+  }
+
+  > :first-child > * {
+    display: inline-flex;
+    align-content: end;
+    align-items: flex-end;
+  }
+
+  span {
+    display: inline-flex;
+    align-content: flex-end;
+    align-items: flex-end;
+
+    @include desktop {
+      margin: 1vw;
+      display: inline-flex;
+      align-items: center;
+      height: 2vw;
+      font-size: 1.7vw;
+    }
+
+    &:not(:nth-child(1)) > :first-child {
+      margin-left: 2vw;
+    }
+
+    > :first-child {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+
+      &:hover {
+        color: rgba(255, 0, 0, 0.76);
+        transition: 0.3s;
+      }
+    }
+
+    display: inline-flex;
+    align-content: center;
+    align-items: center;
+    margin: 2vw 1vw;
+    height: 5vw;
+    font-size: 4vw;
+  }
+}

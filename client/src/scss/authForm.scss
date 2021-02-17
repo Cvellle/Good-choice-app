@@ -1,0 +1,46 @@
+.login,
+.signup {
+  margin-top: 50vw;
+
+  @include tablet {
+    margin-top: 40vw;
+  }
+
+  @include desktop {
+    margin-top: 4vw;
+  }
+}
+
+.login {
+  input {
+    height: 4vw;
+
+    @include tablet {
+      height: 1.4vw;
+    }
+
+    @include desktop {
+      height: unset;
+    }
+  }
+
+  label {
+    margin-bottom: 0.5vw;
+  }
+}
+
+.signup label {
+  margin-bottom: 0.5vw;
+}
+
+.login input,
+.signup input {
+  border: 0.2rem solid black;
+  border-radius: 1.5vw;
+  box-shadow: 0.4vw 0.4vw 0.5vw gray;
+
+  @include desktop {
+    border-radius: 0.5vw;
+    height: 1.7vw;
+  }
+}

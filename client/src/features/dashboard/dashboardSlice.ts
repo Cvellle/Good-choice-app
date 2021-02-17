@@ -66,7 +66,8 @@ const initialState = {
       likes: []
     },
   ] as advicesState,
-  filterAdvices: [] as advicesState
+  filterAdvices: [] as advicesState,
+  chatReduxState: false
 }
 
 export const dashboardSlice = createSlice({
@@ -157,5 +158,6 @@ export const initialLoadItems = (): AppThunk => (dispatch) => {
 export const { setItems, setCurrentUser, filterAdvicesAction, categoryAdvicesAction, likeAction, addItems } = dashboardSlice.actions;
 
 export const advicesState = (state: RootState) => state.dashboard;
+export const chatReduxState = (state: RootState) => state.dashboard;
 
 export default dashboardSlice.reducer;

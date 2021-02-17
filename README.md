@@ -18,7 +18,11 @@ Web application for finding good shopping prices and rare and smart things.
 
 **6.** **Websockets** - Apollo subscriptions (Chat)
 
-**7.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
+**7.** **Scss** - ex. responsive mixins
+
+**8.** **Flexbox** - ex. flex: 0 1 100%
+
+**8.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
 
 :octocat:
 

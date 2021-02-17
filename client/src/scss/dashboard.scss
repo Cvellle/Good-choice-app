@@ -1,0 +1,311 @@
+.dashboard {
+  padding-top: 65vw;
+
+  @include tablet {
+    padding-top: 55vw;
+  }
+
+  @include desktop {
+    padding-top: 15vh;
+  }
+}
+
+.allButton {
+  position: relative;
+  background: rgb(178, 155, 199) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vw;
+  border-radius: 1vw;
+  cursor: pointer;
+  transition: 0.3s;
+
+  @include tablet {
+    font-size: 3vw;
+  }
+
+  @include desktop {
+    height: 3vw;
+    border-radius: 0.5vw;
+    font-size: 1.2vw;
+  }
+
+  &:active {
+    opacity: 0.6;
+    transition: 0.3s;
+  }
+}
+
+.filterAdvices .filterInput {
+  background: rgba(210, 194, 223, 0.801) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10vw;
+  border-radius: 1vw;
+  transition: 0.3s;
+  opacity: 0.6;
+  width: 100%;
+  border: none;
+  padding: 0 0 0 4vw;
+  width: calc(100%);
+  box-sizing: border-box;
+
+  @include tablet {
+    font-size: 3vw;
+  }
+
+  @include desktop {
+    padding: 0 0 0 1vw;
+    height: 3vw;
+    border-radius: 0.5vw;
+    font-size: 1.2vw;
+    border: none;
+    width: 10vw;
+  }
+
+  &:focus {
+    opacity: 0.8;
+    transition: 0.3s;
+  }
+}
+
+.flex-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: safe;
+  flex-wrap: wrap;
+}
+
+.advice-list {
+  list-style: none;
+  padding-top: 2vh;
+  padding-bottom: 4vw;
+  width: 75vw;
+
+  @include tablet {
+    width: 85vw;
+  }
+
+  @include desktop {
+    padding-left: 14vw;
+    width: 75vw;
+  }
+}
+
+.advice-item {
+  margin: 6vw 1vw 9vw 1vw;
+
+  @include tablet {
+    margin: 3vw 1vw 5vw 1vw;
+  }
+
+  @include desktop {
+    margin: 3vw 1vw 2vw 1vw;
+  }
+
+  > :first-child {
+    background: rgba(246, 252, 255, 0.993);
+    border-radius: 0.7vw;
+    padding: 2vw;
+    box-shadow: 0.5vw 0.5vw 1vw #888888;
+    transition: 0.1s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    transition: 0.2s;
+    margin-bottom: 6vw;
+
+    @include tablet {
+      margin-bottom: 4vw;
+    }
+
+    @include desktop {
+      height: unset;
+      padding: 1vw;
+      margin-bottom: 2vw;
+    }
+
+    &:hover {
+      opacity: 0.8;
+      transition: 0.2s;
+    }
+
+    > {
+      * {
+        flex: 1 100%;
+      }
+
+      :nth-child(odd) {
+        @include tablet {
+          > :first-child > :nth-child(odd),
+          .likes {
+            font-size: 3.5vw;
+          }
+        }
+
+        @include desktop {
+          > :first-child > :nth-child(odd),
+          .likes {
+            font-size: 1.3vw;
+          }
+        }
+      }
+    }
+  }
+
+  > :first-child > :nth-child(even):not(:nth-child(6)) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5vw;
+    height: 12vw;
+    width: 90%;
+    background: rgba(221, 218, 218, 0.164);
+
+    @include tablet {
+      height: 12vw;
+      font-size: 3.5vw;
+    }
+
+    @include desktop {
+      height: 4vw;
+      font-size: 1.3vw;
+    }
+  }
+
+  .itemName {
+    height: 2vw;
+  }
+
+  .itemLocation {
+    height: 2;
+  }
+}
+
+.categoriesDiv {
+  height: 22vw;
+
+  @include desktop {
+    height: 8vw;
+  }
+
+  span {
+    background: rgba(221, 218, 218, 0.164);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5vw;
+    height: 2vw;
+    padding: 2vw;
+    margin: 0 0.2vw;
+    cursor: pointer;
+    transition: 0.3s;
+
+    @include tablet {
+      padding: 1vw;
+      margin: 0.5vw;
+      height: 5vw;
+      width: 15vw;
+      font-size: 2.5vw;
+    }
+
+    @include desktop {
+      padding: 1vw;
+      flex: 1 30%;
+      height: 0.5vw;
+      height: 0.5vw;
+      font-size: 1vw;
+      width: unset;
+    }
+
+    &:hover {
+      background: rgba(168, 53, 53, 0.164);
+      transition: 0.3s;
+    }
+  }
+}
+
+.creatorInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .imageWrapper {
+    width: 10vw;
+    height: 10vw;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+
+    @include tablet {
+      width: 8vw;
+      height: 8vw;
+    }
+
+    @include desktop {
+      width: 2vw;
+      height: 2vw;
+    }
+  }
+
+  img {
+    min-width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+}
+
+.advice-item i {
+  cursor: pointer;
+  transform: scale(1.5);
+  font-weight: 900;
+  transition: 0.1s all;
+
+  @include tablet {
+    transform: scale(2.2);
+  }
+
+  @include desktop {
+    transform: scale(1.5);
+  }
+
+  &:active {
+    transform: scale(1.8);
+    transition: 0.2s;
+  }
+
+  &:hover {
+    color: green;
+  }
+}
+
+.chatImage {
+  position: fixed;
+  bottom: 2vw;
+  right: 1.5vw;
+  width: 10vw;
+  height: auto;
+  z-index: 15;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: 0.3s;
+
+  @include tablet {
+    width: 8vw;
+  }
+
+  @include desktop {
+    width: 4vw;
+  }
+
+  &:hover {
+    opacity: 1;
+    transition: 0.3s;
+  }
+}
