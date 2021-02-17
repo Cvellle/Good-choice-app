@@ -22,7 +22,7 @@ Web application for finding good shopping prices and rare and smart things.
 
 **8.** **Flexbox** - ex. flex: 0 1 100%
 
-**8.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
+**9.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
 
 :octocat:
 
