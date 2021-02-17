@@ -14,7 +14,11 @@ Web application for finding good shopping prices and rare and smart things.
 
 **4.** **Material UI** - Grid, Box, Dialog
 
-**5.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
+**5.** **Styled components** - Chat
+
+**6.** **Websockets** - Apollo subscriptions (Chat)
+
+**7.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
 
 :octocat:
 

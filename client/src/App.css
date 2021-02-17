@@ -29,7 +29,6 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -130,6 +129,7 @@ body {
 }
 
 .allButton {
+  position: relative;
   background: rgb(178, 155, 199) !important;
   display: flex;
   align-items: center;

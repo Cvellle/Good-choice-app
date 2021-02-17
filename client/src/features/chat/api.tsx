@@ -7,12 +7,12 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: "http://localhost:4000",
+  uri: "https://n8nqw.sse.codesandbox.io",
 });
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:4000`,
+  uri: `ws://n8nqw.sse.codesandbox.io`,
   options: {
     reconnect: true,
   },

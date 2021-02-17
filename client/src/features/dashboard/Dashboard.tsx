@@ -197,7 +197,6 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard">
-      <Chat />
       <div className="flex-wrapper advice-list">
         <Grid
           container
@@ -261,6 +260,7 @@ export const Dashboard: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Chat />
     </div>
   );
 };
