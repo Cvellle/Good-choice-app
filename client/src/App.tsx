@@ -79,7 +79,6 @@ function App() {
               path="/myprofile"
               exact
             />
-
             <div
               style={
                 chatVisible &&
@@ -90,11 +89,15 @@ function App() {
             >
               <Chat />
             </div>
-            <img
-              src={chatImage}
-              className="chatImage"
-              onClick={() => toggleChat()}
-            />
+            {adminBoolean ||
+              beginnerUserBoolean ||
+              (advancedUserBoolean && (
+                <img
+                  src={chatImage}
+                  className="chatImage"
+                  onClick={() => toggleChat()}
+                />
+              ))}
           </BrowserRouter>
         </ApolloHooksProvider>
       </ApolloProvider>

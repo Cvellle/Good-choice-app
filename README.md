@@ -24,6 +24,8 @@ Web application for finding good shopping prices and rare and smart things.
 
 **9.** **Node.js** Mongoose, Nodemailer, Multer, Concurrently
 
+**10.** **Other** GraphQL, served from another location (Chat)
+
 :octocat:
 
 ```
