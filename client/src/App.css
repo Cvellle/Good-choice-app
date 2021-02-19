@@ -420,21 +420,57 @@
   margin-bottom: 0.5vw;
 }
 
+.signup input {
+  height: 6vw;
+  border-radius: 2.5vw;
+  background: rgba(255, 255, 255, 0.171);
+  box-shadow: 0.4vw 0.4vw 0.5vw gray;
+  padding-left: 2vw;
+  border: 0.12rem solid #222121;
+}
+@media (min-width: 767px) and (max-width: 1024px) {
+  .signup input {
+    height: 4vw;
+    border-radius: 1.5vw;
+    width: 32vw;
+  }
+}
+@media (min-width: 1025px) {
+  .signup input {
+    height: 2vw;
+    width: 15vw;
+    border-radius: 0.5vw;
+    border: 0.12rem solid #222121;
+    padding-left: 0.5vw;
+    font-size: 1.1vw;
+  }
+}
 .signup label {
   margin-bottom: 0.5vw;
 }
 
-.login input,
-.signup input {
-  border: 0.2rem solid black;
+.signup label {
+  margin-bottom: 0.5vw;
+}
+
+.login input {
+  border: 0.12rem solid black;
   border-radius: 1.5vw;
   box-shadow: 0.4vw 0.4vw 0.5vw gray;
+  padding-left: 0.5vw;
+}
+@media (min-width: 767px) and (max-width: 1024px) {
+  .login input {
+    height: 4vw;
+    width: 32vw;
+  }
 }
 @media (min-width: 1025px) {
-  .login input,
-.signup input {
+  .login input {
+    height: 2vw;
+    width: 15vw;
     border-radius: 0.5vw;
-    height: 1.7vw;
+    padding-left: 0.5vw;
   }
 }
 

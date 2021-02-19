@@ -104,7 +104,6 @@ export const SignUp: React.FC = () => {
                 value={values.firstName}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.firstName && touched.firstName
                     ? "text-input error"
@@ -136,7 +135,6 @@ export const SignUp: React.FC = () => {
                 value={values.lastName}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.lastName && touched.lastName
                     ? "text-input error"
@@ -168,7 +166,6 @@ export const SignUp: React.FC = () => {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.email && touched.email
                     ? "text-input error"
@@ -201,7 +198,6 @@ export const SignUp: React.FC = () => {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.password && touched.password
                     ? "text-input error"
@@ -226,7 +222,6 @@ export const SignUp: React.FC = () => {
                 value={values.role}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.role && touched.role
                     ? "text-input error"
@@ -240,7 +235,6 @@ export const SignUp: React.FC = () => {
                 value={values.registrationKey}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.registrationKey && touched.registrationKey
                     ? "text-input error"
@@ -254,7 +248,6 @@ export const SignUp: React.FC = () => {
                 value={values.image}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                style={{ height: "2.5vh" }}
                 className={
                   errors.image && touched.image
                     ? "text-input error"

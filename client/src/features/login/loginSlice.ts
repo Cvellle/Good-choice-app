@@ -47,7 +47,7 @@ export const loginSlice = createSlice({
         update: {
           ...action.payload,
           role: role === "USER_BEGINNER" ? "USER_ADVANCED" :
-            (role === "USER_ADVANCED" ? "ADMIN" : "ADMIN")
+            (role === "USER_ADVANCED" ? "USER_ADVANCED" : "ADMIN")
         }
       });
     }
