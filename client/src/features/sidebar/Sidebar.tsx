@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -19,6 +19,7 @@ export const Sidebar: React.FC = () => {
   const [profileImageUrl, setProfileImageUrl] = useState<string>(
     loggedUserSelector.image
   );
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     profileImageUrl && setLoadingSpinner(false);
@@ -62,9 +63,6 @@ export const Sidebar: React.FC = () => {
       })
       .then(() => {
         setProfileImageUrl(image[0].name);
-      })
-      .then(() => {
-        // setLoadingSpinner(false);
       });
   };
 
@@ -83,18 +81,30 @@ export const Sidebar: React.FC = () => {
               className="create-post-form"
             >
               <div className="profileImageDiv">
-                {loadingSpinner ? (
-                  <CircularProgress />
-                ) : (
-                  <img
-                    src={
-                      loggedUserSelector.image !== " "
-                        ? `./profileImage/${profileImageUrl}`
-                        : noImagePicture
+                {!loaded ? <CircularProgress /> : null}
+                <img
+                  style={loaded ? { opacity: "1" } : { opacity: "0" }}
+                  src={
+                    loggedUserSelector.image !== " "
+                      ? `./profileImage/${profileImageUrl}`
+                      : noImagePicture
+                  }
+                  alt=""
+                  ref={(input) => {
+                    if (!input) {
+                      return;
                     }
-                    alt=""
-                  />
-                )}
+                    const img = input;
+
+                    const updateFunc = () => {
+                      setLoaded(true);
+                    };
+                    img.onload = updateFunc;
+                    if (img.complete) {
+                      updateFunc();
+                    }
+                  }}
+                />
               </div>
               <div className="input-wrapper">
                 <span className="label">Select image</span>

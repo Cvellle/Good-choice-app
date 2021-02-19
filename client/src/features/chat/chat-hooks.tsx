@@ -5,15 +5,25 @@ import { IMessage } from "./Chat";
 
 export type onReceive = (message: IMessage) => void;
 
+let ROOT_QUERY = gql`
+  query {
+    getChatMessages {
+      text
+      channel
+      sender
+    }
+  }
+`;
+
 function subscribeToMessage(channel: string, onReceive: onReceive) {
   return apolloClient
     .subscribe({
       query: gql`
         subscription Message($channel: String!) {
           message(channel: $channel) {
-            sender
-            channel
             text
+            channel
+            sender
           }
         }
       `,
@@ -26,18 +36,19 @@ function subscribeToMessage(channel: string, onReceive: onReceive) {
     });
 }
 
-function sendMessage(sender: string, channel: string, text: string) {
+function sendMessage(text: string, channel: string, sender: string) {
   return apolloClient.mutate({
     mutation: gql`
-      mutation Send($sender: String!, $channel: String!, $text: String!) {
-        sendMessage(sender: $sender, channel: $channel, text: $text) {
-          sender
-          channel
+      mutation Send($text: String!, $channel: String!, $sender: String!) {
+        sendMessage(text: $text, channel: $channel, sender: $sender) {
           text
+          channel
+          sender
         }
       }
     `,
-    variables: { sender, channel, text },
+    variables: { text, channel, sender },
+    refetchQueries: [{ query: ROOT_QUERY }],
   });
 }
 
@@ -62,9 +73,8 @@ export const useChat = (
 ) => {
   useEffect(() => {
     const observer = subscribeToMessage(channel, onReceive);
-
     return () => observer.unsubscribe();
   });
 
-  return (text: string) => sendMessage(sender, channel, text);
+  return (text: string) => sendMessage(text, channel, sender);
 };

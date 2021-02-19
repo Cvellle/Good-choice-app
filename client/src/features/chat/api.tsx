@@ -7,11 +7,11 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 const httpLink = new HttpLink({
   // uri: "https://n8nqw.sse.codesandbox.io",
-  uri: "https://subsciptions-backend.herokuapp.com/",
+  uri: "https://ki7up.sse.codesandbox.io/",
 });
 
 const wsLink = new WebSocketLink({
-  uri: "wss://subsciptions-backend.herokuapp.com/",
+  uri: "wss://ki7up.sse.codesandbox.io/",
   options: {
     reconnect: true,
   },

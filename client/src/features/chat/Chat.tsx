@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useChat } from "./chat-hooks";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery, useSubscription } from "react-apollo-hooks";
 import gql from "graphql-tag";
 import styled, { css } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
@@ -179,7 +179,7 @@ const InputMessage = ({ onSend }: { onSend: (text: string) => void }) => {
   );
 };
 
-export type IMessage = { sender: string; text: string };
+export type IMessage = { text: string; sender: string };
 
 const MessageList = ({
   messages,
@@ -190,17 +190,18 @@ const MessageList = ({
 }) => {
   return (
     <>
-      {messages.map((m, i) =>
-        m.sender === currentSender ? (
-          <Message kind={"primary"} key={i} style={{ textAlign: "right" }}>
-            <b>me</b>: {m.text}
-          </Message>
-        ) : (
-          <Message kind={"secondary"} key={i}>
-            <b>{m.sender}</b> : {m.text}
-          </Message>
-        )
-      )}
+      {messages &&
+        messages.map((m, i) =>
+          m.sender === currentSender ? (
+            <Message kind={"primary"} key={i} style={{ textAlign: "right" }}>
+              <b>me</b>: {m.text}
+            </Message>
+          ) : (
+            <Message kind={"secondary"} key={i}>
+              <b>{m.sender}</b> : {m.text}
+            </Message>
+          )
+        )}
     </>
   );
 };
@@ -214,21 +215,30 @@ const GET_MESSAGES = gql`
     }
   }
 `;
+
+const SUBCRIBE_TO_MESSAGES = gql`
+  subscription Message($channel: String!) {
+    message(channel: $channel) {
+      text
+      channel
+      sender
+    }
+  }
+`;
+
 export default (chatVisible: any) => {
   const loggedUserSelector = useSelector(loggedUser);
   const currentSender = loggedUserSelector.firstName;
   const { loading, error, data } = useQuery(GET_MESSAGES);
 
   const [messages, setMessages] = React.useState<IMessage[]>([]);
-  let a = data && [...data.getChatMessages];
 
   useEffect(() => {
     getMessages();
   }, [data]);
 
   const getMessages = () => {
-    data && console.log(data.getChatMessages);
-    data && setMessages([...data.getChatMessages]);
+    data && data.getChatMessages && setMessages([...data.getChatMessages]);
   };
 
   const sendMessage = useChat(currentSender, "test", (msg: IMessage) => {
@@ -236,7 +246,9 @@ export default (chatVisible: any) => {
   });
 
   const addMessage = (msg: IMessage) => {
-    setMessages((prevMessages) => [...prevMessages, msg]);
+    data &&
+      data.getChatMessages &&
+      setMessages((prevMessages) => [...prevMessages, msg]);
   };
 
   return (
