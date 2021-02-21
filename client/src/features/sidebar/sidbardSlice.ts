@@ -13,50 +13,7 @@ interface IAdvice {
 type advicesState = IAdvice[]
 
 const initialState = {
-  advices: [
-    {
-      id: 3,
-      name: "Cheap bicycle parts",
-      location: "Ivankovačka 16",
-      category: "sport, bicycle, hobby",
-      likes: 0
-    },
-    {
-      id: 2,
-      name: "Good takeaway pasta",
-      location: "Kraljice Marije 12",
-      category: "food",
-      likes: 0
-    },
-    {
-      id: 4,
-      name: "Natural sports creams - Mala ruska apoteka",
-      location: "Goldsvordijeva 3",
-      category: "health, sport",
-      likes: 0
-    },
-    {
-      id: 5,
-      name: "Cheap takeway coffee - Caffe Boulevard",
-      location: "Bulevar Kralja Aleksandra 103",
-      category: "lifestyle, food, free time",
-      likes: 0
-    },
-    {
-      id: 6,
-      name: "Cheap bicycle parts",
-      location: "Ivankovačka 16",
-      category: "sport, bicycle, hobby",
-      likes: 0
-    },
-    {
-      id: 1,
-      name: "Cheap bicycle parts",
-      location: "Ivankovačka 16",
-      category: "sport, bicycle, hobby",
-      likes: 6
-    }
-  ] as advicesState
+  advices: [] as advicesState
 }
 
 export const dashboardSlice = createSlice({
@@ -70,7 +27,7 @@ export const dashboardSlice = createSlice({
       };
     },
     LikeAction: (state, action: PayloadAction<IAdvice>) => {
-      const { id, likes } = action.payload;
+      const { id } = action.payload;
       let newLikes = action.payload.likes + 1;
       axios.put("/api/advices", {
         id: { id: id },

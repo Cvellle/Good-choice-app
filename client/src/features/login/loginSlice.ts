@@ -28,15 +28,21 @@ export const loginSlice = createSlice({
   reducers: {
     setLoggedUser: (state, action: PayloadAction<User>) => {
       const { email, firstName, lastName, role, image } = action.payload;
-      state.firstName = firstName;
-      state.lastName = lastName;
-      state.email = email;
-      state.role = role;
-      state.image = image
+      return {
+        ...state,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        role: role,
+        image: image
+      }
     },
     logOutUser: (state) => {
-      state.role = "";
-      state.image = "";
+      return {
+        ...state,
+        image: "",
+        role: ""
+      }
     },
     changeRole: (state, action: PayloadAction<User>) => {
       const { email, role } = action.payload;
