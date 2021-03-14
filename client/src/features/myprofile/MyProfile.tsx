@@ -77,7 +77,7 @@ export const MyProfile: React.FC = () => {
   };
 
   return (
-    <div className="signup">
+    <div className="signup myProfile">
       <div className="deleteDiv">
         <button type="submit" onClick={handleClickOpen}>
           Delete

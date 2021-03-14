@@ -1,9 +1,11 @@
-@import "./mixins.scss";
-@import "./scss/header.scss";
-@import "./scss/dashboard.scss";
-@import "./scss/authForm.scss";
-@import "./scss/addItem.scss";
-@import "./scss/myProfile.scss";
+@use "./scss/base/global.scss" as *;
+@use "./scss/base/mixins.scss" as *;
+@use "./scss/base/functions.scss" as *;
+@use "./scss/header.scss" as *;
+@use "./scss/dashboard.scss" as *;
+@use "./scss/authForm.scss" as *;
+@use "./scss/addItem.scss" as *;
+@use "./scss/myProfile.scss";
 
 body {
   position: relative;

@@ -1,3 +1,6 @@
+@use "./base/mixins.scss" as *;
+@use "./base/functions.scss" as *;
+
 .dashboard {
   padding-top: 65vw;
 
@@ -92,7 +95,7 @@
 
   @include desktop {
     padding-left: 14vw;
-    width: 75vw;
+    width: 85vw;
   }
 }
 
@@ -128,6 +131,13 @@
       height: unset;
       padding: 1vw;
       margin-bottom: 2vw;
+    }
+
+    & b {
+      @include desktop {
+        margin-top: 1vw;
+        margin-bottom: 1vw;
+      }
     }
 
     &:hover {
@@ -194,6 +204,14 @@
     height: 8vw;
   }
 
+  & b {
+    display: block;
+    @include desktop {
+      margin-top: 1vw;
+      margin-bottom: 1vw;
+    }
+  }
+
   span {
     background: rgba(221, 218, 218, 0.164);
     display: inline-flex;
@@ -215,7 +233,7 @@
     }
 
     @include desktop {
-      padding: 1vw;
+      padding: 0.5vw;
       flex: 1 30%;
       height: 0.5vw;
       height: 0.5vw;
@@ -307,5 +325,10 @@
   &:hover {
     opacity: 1;
     transition: 0.3s;
+  }
+}
+
+.dashboard button {
+  @include desktop {
   }
 }

@@ -1,3 +1,6 @@
+@use "./base/mixins.scss" as *;
+@use "./base/functions.scss" as *;
+
 .App-header {
   position: fixed;
   top: 0;
