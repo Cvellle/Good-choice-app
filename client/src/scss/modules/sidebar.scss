@@ -1,29 +1,32 @@
+@use "../base/mixins.scss" as *;
+@use "../base/functions.scss" as *;
+
 .sidebarGrid {
   position: fixed;
   display: flex;
-  top: 25vw;
   align-items: center;
   justify-content: start;
   flex-wrap: wrap;
   background: rgb(121, 29, 175);
-  height: 10vh;
-  width: 100vw;
+
   z-index: 1;
-}
 
-@media screen and (min-width: 768px) {
-  .sidebarGrid {
-    top: 23vw;
-    width: 100vw;
-    height: 14vw;
+  @include mobile {
+    top: rem(100);
+    height: rem(80);
+    width: 100%;
   }
-}
 
-@media screen and (min-width: 1025px) {
-  .sidebarGrid {
-    top: 0vh;
-    width: 14vw;
+  @include tablet {
+    top: rem(170);
+    height: rem(120);
+    width: 100%;
+  }
+
+  @include desktop {
+    top: 0;
     height: 100vh;
+    width: rem(240);
     justify-content: center;
     align-items: center;
   }
@@ -33,17 +36,10 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-}
 
-@media screen and (min-width: 768px) {
-  .profileWrapper {
-  }
-}
-
-@media screen and (min-width: 1025px) {
-  .profileWrapper {
+  @include desktop {
     align-items: unset;
-    width: 13vw;
+    width: rem(200);
     padding-top: 5vh;
   }
 }
@@ -52,60 +48,41 @@
   display: flex;
   width: 100%;
   align-items: center;
-}
 
-@media screen and (min-width: 768px) {
-  .sidebar form {
-  }
-}
-
-@media screen and (min-width: 1025px) {
-  .sidebar form {
+  @include desktop {
     flex-wrap: wrap;
     justify-content: center;
   }
 }
 
 .sidebar form > * {
-  margin-left: 3vw;
+  margin-left: 10vw;
   margin-bottom: unset;
-}
 
-@media screen and (min-width: 768px) {
-  .sidebar form > * {
-  }
-}
-
-@media screen and (min-width: 1025px) {
-  .sidebar form > * {
+  @include desktop {
     margin-left: unset;
-    margin-bottom: 1vw;
+    margin-bottom: rem(16);
   }
 }
 
 .profileImageDiv {
   position: relative;
-  height: 10vw;
-  width: 10vw;
+  height: rem(50);
+  width: rem(50);
   display: flex;
   justify-content: center;
   align-self: center;
   overflow: hidden;
   border-radius: 50%;
-}
 
-@media screen and (min-width: 768px) {
-  .profileImageDiv {
-    height: 12vw;
-    width: 12vw;
+  @include tablet {
+    height: rem(80);
+    width: rem(80);
   }
-}
 
-@media screen and (min-width: 1025px) {
-  .profileImageDiv {
-    flex: 0 1 10vw;
-    height: 10vw;
-    width: 10vw;
+  @include desktop {
+    height: rem(160);
+    width: rem(160);
     object-fit: contain;
   }
 }
@@ -115,16 +92,9 @@
   min-width: 100%;
   height: auto;
   max-height: 100%;
-  border-radius: 2vw;
-}
+  border-radius: rem(32);
 
-@media screen and (min-width: 768px) {
-  .profileImageDiv img {
-  }
-}
-
-@media screen and (min-width: 1025px) {
-  .profileImageDiv img {
+  @include desktop {
     border-radius: 1vw;
   }
 }
@@ -135,27 +105,23 @@
   align-content: center;
   align-items: center;
   justify-content: center;
-  padding: 1vw;
+  padding: rem(16);
   text-align: center;
   cursor: pointer;
-  height: 8vw;
-  width: 30vw;
-  font-size: 4vw;
-}
+  height: rem(30);
+  width: rem(100);
+  font-size: rem(12);
 
-@media screen and (min-width: 768px) {
-  .input-wrapper {
+  @include tablet {
     height: 6vw;
     width: 20vw;
     font-size: 3vw;
   }
-}
 
-@media screen and (min-width: 1025px) {
-  .input-wrapper {
-    height: 1vw;
-    width: 8vw;
-    font-size: 1.2vw;
+  @include desktop {
+    height: rem(1);
+    width: rem(8 * 16);
+    font-size: rem(16);
   }
 }
 
@@ -171,7 +137,7 @@
   background: #601891;
   cursor: pointer;
   color: #fff;
-  border-radius: 0.5vw;
+  border-radius: rem(8);
   z-index: 0;
   transition: 0.3s;
 }
@@ -196,30 +162,26 @@
   cursor: pointer;
   color: #fff;
   text-transform: uppercase;
-  border-radius: 0.5vw;
+  border-radius: rem(8);
   z-index: 4;
   opacity: 0;
 }
 
 .submitButton {
-  height: 10vw;
-  width: 20vw;
-  font-size: 3vw;
-}
+  height: rem(30);
+  width: rem(80);
+  font-size: rem(12);
 
-@media screen and (min-width: 768px) {
-  .submitButton {
-    height: 8vw;
-    width: 14vw;
-    font-size: 2.3vw;
+  @include tablet {
+    height: rem(45);
+    width: rem(120);
+    font-size: rem(18);
   }
-}
 
-@media screen and (min-width: 1025px) {
-  .submitButton {
-    height: 3vw;
-    width: 10vw;
-    font-size: 1vw;
+  @include desktop {
+    height: rem(32);
+    width: rem(130);
+    font-size: rem(14);
   }
 }
 

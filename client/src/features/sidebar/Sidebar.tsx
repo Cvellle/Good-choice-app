@@ -7,7 +7,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { setLoggedUser, loggedUser } from "../login/loginSlice";
 import "../../App.css";
-import "./sidebar.css";
 import noImagePicture from "../../images/noimage.jpg";
 
 export const Sidebar: React.FC = () => {
