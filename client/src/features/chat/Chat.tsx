@@ -59,6 +59,7 @@ const Root = styled.div<IVisibleChatProps>`
     css`
       color: blue;
       display: flex;
+      box-shadow: -2px -2px 10px 0 #e4e4e4;
     `};
 
   ${(props) =>
@@ -108,6 +109,7 @@ const SendInput = styled.input`
   flex: 0 1 100%;
   margin-right: auto;
   height: 6vw;
+  border: 1px solid gray;
 
   ${breakpoint("md")`
   width: 40vw;
