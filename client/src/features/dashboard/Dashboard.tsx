@@ -213,7 +213,8 @@ export const Dashboard: React.FC = () => {
             className="filterAdvices"
             style={{
               display: "flex",
-              justifyContent: "center",
+              justifyContent: "flex-end",
+              paddingRight: "calc(15rem - 10vw)",
               alignItems: "center",
             }}
           >

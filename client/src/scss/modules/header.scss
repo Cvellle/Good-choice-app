@@ -24,7 +24,7 @@
   }
 
   @include desktop {
-    height: 20vh;
+    height: 12vh;
   }
 
   &.smaller {
@@ -57,7 +57,7 @@
       display: inline-flex;
       align-items: center;
       height: rem(32);
-      font-size: rem(22);
+      font-size: rem(20);
     }
 
     &:not(:nth-child(1)) > :first-child {

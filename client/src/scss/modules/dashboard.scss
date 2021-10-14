@@ -9,7 +9,7 @@
   }
 
   @include desktop {
-    padding-top: 15vh;
+    padding-top: 70px;
   }
 }
 
@@ -29,9 +29,9 @@
   }
 
   @include desktop {
-    height: 3vw;
+    height: 38px;
     border-radius: 0.5vw;
-    font-size: 1.2vw;
+    font-size: 16px;
   }
 
   &:active {
@@ -61,11 +61,12 @@
 
   @include desktop {
     padding: 0 0 0 1vw;
-    height: 3vw;
     border-radius: 0.5vw;
-    font-size: 1.2vw;
     border: none;
-    width: 10vw;
+    height: 38px;
+    border-radius: 0.5vw;
+    font-size: 16px;
+    width: 200px;
   }
 
   &:focus {
