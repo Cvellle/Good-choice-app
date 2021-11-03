@@ -132,7 +132,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
             +
           </button>
         </div>
-        <div className="addedCategoriesDiv">
+        <div className="addedcategories-div">
           {categoriesState.map((cat) => {
             return cat.trim() && <span>{cat}</span>;
           })}

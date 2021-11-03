@@ -17,7 +17,7 @@ import {
   advicesState,
   setCurrentUser,
   initialLoadItems,
-  filterAdvicesAction,
+  filter-advicesAction,
   categoryAdvicesAction,
   likeAction,
 } from "./dashboardSlice";
@@ -112,7 +112,7 @@ export const Dashboard: React.FC = () => {
       image: " ",
     });
 
-    const getItemCreatorInfo = (infoArg: string) => {
+    const getItemcreator-info = (infoArg: string) => {
       axios
         .get(`/api/datas`, {
           params: {
@@ -125,7 +125,7 @@ export const Dashboard: React.FC = () => {
     };
 
     useEffect(() => {
-      getItemCreatorInfo(advice.creator.split("/n")[0]);
+      getItemcreator-info(advice.creator.split("/n")[0]);
     }, []);
 
     let profileImageName = advice.creator.split("/n")[2];
@@ -139,7 +139,7 @@ export const Dashboard: React.FC = () => {
               <p className="itemName">{advice.name}</p>
               <b>Location</b>
               <p className="itemLocation">{advice.location}</p>
-              <div className="categoriesDiv">
+              <div className="categories-div">
                 <b>Category</b>
                 <p>
                   {advice.category.split(",").map((el, i) => (
@@ -158,10 +158,10 @@ export const Dashboard: React.FC = () => {
                 </span>
                 {advice.likes.length}
               </p>
-              <div className="creatorInfo">
+              <div className="creator-info">
                 <div>By:</div>
                 <div>{advice.creator.split("/n")[1]}</div>
-                <div className="imageWrapper">
+                <div className="image-wrapper">
                   {profileImageName !== " " && (
                     <img src={`./profileImage/${profileImageName}`} />
                   )}
@@ -210,7 +210,7 @@ export const Dashboard: React.FC = () => {
           <Grid
             container
             spacing={2}
-            className="filterAdvices"
+            className="filter-advices"
             style={{
               display: "flex",
               justifyContent: "flex-end",
@@ -220,7 +220,7 @@ export const Dashboard: React.FC = () => {
           >
             <Grid item xs={12} lg={1}>
               <span
-                className="allButton"
+                className="all-button"
                 onClick={() => dispatch(categoryAdvicesAction(""))}
               >
                 All
@@ -230,9 +230,9 @@ export const Dashboard: React.FC = () => {
             <Grid item xs={12} lg={2}>
               <input
                 type="text"
-                className="filterInput"
+                className="filter-input"
                 placeholder="search items"
-                onChange={(e) => dispatch(filterAdvicesAction(e.target.value))}
+                onChange={(e) => dispatch(filter-advicesAction(e.target.value))}
               />
             </Grid>
           </Grid>

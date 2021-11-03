@@ -7,7 +7,6 @@ import loginReducer from '../features/login/loginSlice';
 import dashboardReducer from '../features/dashboard/dashboardSlice';
 
 
-
 const persistConfig = {
   key: 'root',
   storage,

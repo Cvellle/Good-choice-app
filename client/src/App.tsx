@@ -16,7 +16,7 @@ import PrivateRoute from "./features/login/privateroute/privateroute";
 import { loggedUser } from "./features/login/loginSlice";
 import { apolloClient } from "./features/chat/api";
 import "./App.css";
-import chatImage from "./images/chat.png";
+import chat-image from "./images/chat.png";
 
 function App() {
   const loggedUserSelector = useSelector(loggedUser);
@@ -93,8 +93,8 @@ function App() {
               beginnerUserBoolean ||
               (advancedUserBoolean && (
                 <img
-                  src={chatImage}
-                  className="chatImage"
+                  src={chat-image}
+                  className="chat-image"
                   onClick={() => toggleChat()}
                 />
               ))}

@@ -13,7 +13,7 @@
   }
 }
 
-.allButton {
+.all-button {
   position: relative;
   background: rgb(178, 155, 199) !important;
   display: flex;
@@ -40,7 +40,7 @@
   }
 }
 
-.filterAdvices .filterInput {
+.filter-advices .filter-input {
   background: rgba(210, 194, 223, 0.801) !important;
   display: flex;
   align-items: center;
@@ -198,7 +198,7 @@
   }
 }
 
-.categoriesDiv {
+.categories-div {
   height: 22vw;
 
   @include desktop {
@@ -249,13 +249,13 @@
   }
 }
 
-.creatorInfo {
+.creator-info {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 
-  .imageWrapper {
+  .image-wrapper {
     width: 10vw;
     height: 10vw;
     position: relative;
@@ -304,7 +304,7 @@
   }
 }
 
-.chatImage {
+.chat-image {
   position: fixed;
   bottom: 2vw;
   right: 1.5vw;
