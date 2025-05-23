@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import useReactRouter from "use-react-router";
+
 import axios from "axios";
 import { Formik } from "formik";
 import * as yup from "yup";
 
 import { setLoggedUser, loggedUser } from "../login/loginSlice";
+import { useNavigate } from "react-router-dom";
 
 const initialValues = {
   firstName: "",
@@ -26,16 +27,13 @@ const validationSchema = yup.object().shape({
 
 export const SignUp: React.FC = () => {
   const dispatch = useDispatch();
-  const { history } = useReactRouter();
+  const navigate = useNavigate();
   const loggedUserSelector = useSelector(loggedUser);
 
   useEffect(() => {
-    loggedUserSelector.role !== "" && history.push("/");
-    loggedUserSelector.role == "" && history.push("/signup");
+    loggedUserSelector.role !== "" && navigate("/");
+    loggedUserSelector.role == "" && navigate("/signup");
   }, []);
-
-  const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
-  const processProd = process.env.USERS_ROUTE_PRODUCTION;
 
   let usersCollection = "datas";
 
@@ -44,6 +42,7 @@ export const SignUp: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
+          setSubmitting(false);
           dispatch(
             setLoggedUser({
               id: 0,
@@ -62,7 +61,7 @@ export const SignUp: React.FC = () => {
             })
             .then((res) => {
               if (!res.data[0]) {
-                history.push("/login");
+                navigate("/login");
                 axios.post(`/api/${usersCollection}`, {
                   firstName: values.firstName,
                   lastName: values.lastName,
@@ -82,12 +81,10 @@ export const SignUp: React.FC = () => {
             values,
             touched,
             errors,
-            dirty,
             isSubmitting,
             handleChange,
             handleBlur,
             handleSubmit,
-            handleReset,
           } = props;
           return (
             <form onSubmit={handleSubmit}>

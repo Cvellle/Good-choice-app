@@ -1,29 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import useReactRouter from "use-react-router";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import SearchIcon from "@material-ui/icons/Search";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 
 import {
   advicesState,
   setCurrentUser,
   initialLoadItems,
-  filter-advicesAction,
+  filterAdvicesAction,
   categoryAdvicesAction,
   likeAction,
 } from "./dashboardSlice";
 import { changeRole, loggedUser } from "../login/loginSlice";
 import "../../App.css";
-import Chat from "../chat/Chat";
+import { useNavigate } from "react-router-dom";
+import {
+  Grid,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContentText,
+  Button,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
+import { IconButton, Input } from "@material-ui/core";
 
 interface IAdvice {
   id: number;
@@ -43,26 +44,11 @@ interface User {
   image: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(1),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
-      margin: "1vw",
-    },
-  })
-);
-
 export const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
   const advicesSelector = useSelector(advicesState);
   const loggedUserSelector = useSelector(loggedUser);
-  const { history } = useReactRouter();
-  const classes = useStyles();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
   const [dialogMessage, setDialogMessage] = useState(
@@ -81,11 +67,11 @@ export const Dashboard: React.FC = () => {
     loggedUserSelector.role == "USER_BEGINNER" && handleClickOpen();
     dispatch(initialLoadItems());
     dispatch(setCurrentUser(loggedUserSelector.email));
-    loggedUserSelector.role === "" && history.push("/login");
-    loggedUserSelector.role !== "" && history.push("/");
+    loggedUserSelector.role === "" && navigate("/login");
+    loggedUserSelector.role !== "" && navigate("/");
   }, []);
 
-  const likeFunction = (e: React.MouseEvent, advice: IAdvice, user: User) => {
+  const likeFunction = (e: React.MouseEvent, advice: any, user: User) => {
     e.stopPropagation();
     dispatch(likeAction(advice));
     dispatch(changeRole(user));
@@ -103,29 +89,25 @@ export const Dashboard: React.FC = () => {
   let user = loggedUserSelector;
 
   const Item = (advice: IAdvice) => {
-    const [creatorImage, setCreatorImage] = useState<any>({
-      id: 0,
-      email: "",
-      firstName: "",
-      lastName: "",
-      role: "",
-      image: " ",
-    });
+    // const [creatorImage, setCreatorImage] = useState<any>({
+    //   id: 0,
+    //   email: "",
+    //   firstName: "",
+    //   lastName: "",
+    //   role: "",
+    //   image: " ",
+    // });
 
-    const getItemcreator-info = (infoArg: string) => {
-      axios
-        .get(`/api/datas`, {
-          params: {
-            email: infoArg,
-          },
-        })
-        .then((res) => {
-          res.data[0] && setCreatorImage(res.data[0]);
-        });
+    const getItemcreatorInfo = (infoArg: string) => {
+      axios.get(`/api/datas`, {
+        params: {
+          email: infoArg,
+        },
+      });
     };
 
     useEffect(() => {
-      getItemcreator-info(advice.creator.split("/n")[0]);
+      getItemcreatorInfo(advice.creator.split("/n")[0]);
     }, []);
 
     let profileImageName = advice.creator.split("/n")[2];
@@ -134,7 +116,7 @@ export const Dashboard: React.FC = () => {
       <React.Fragment>
         <Grid item xs={12} lg={4}>
           <div className="advice-item">
-            <Paper className={classes.paper}>
+            <Paper className={"paper"}>
               <b>Title</b>
               <p className="itemName">{advice.name}</p>
               <b>Location</b>
@@ -167,16 +149,13 @@ export const Dashboard: React.FC = () => {
                   )}
                 </div>
               </div>
-            </Paper>
-            <i
+
+               <Button
               className="fa fa-thumbs-o-up"
-              style={
-                advice.likes.includes(loggedUserSelector.email)
-                  ? { color: "green" }
-                  : { color: "unset" }
-              }
+              variant="contained"
               onClick={(e: React.MouseEvent) => likeFunction(e, advice, user)}
-            ></i>
+            />
+            </Paper>
           </div>
         </Grid>
       </React.Fragment>
@@ -228,11 +207,11 @@ export const Dashboard: React.FC = () => {
             </Grid>
             <SearchIcon />
             <Grid item xs={12} lg={2}>
-              <input
+              <Input
                 type="text"
                 className="filter-input"
                 placeholder="search items"
-                onChange={(e) => dispatch(filter-advicesAction(e.target.value))}
+                onChange={(e) => dispatch(filterAdvicesAction(e.target.value))}
               />
             </Grid>
           </Grid>

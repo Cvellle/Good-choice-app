@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppThunk, RootState } from '../../app/store';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
+import type { AppThunk, RootState } from '../../app/store';
 import axios from 'axios'
 
 interface IAdvice {
@@ -10,17 +11,17 @@ interface IAdvice {
   likes: number
 }
 
-type advicesState = IAdvice[]
+type AdvicesState = IAdvice[]
 
 const initialState = {
-  advices: [] as advicesState
+  advices: [] as AdvicesState
 }
 
 export const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
-    setItems: (state, action: PayloadAction<advicesState>) => {
+    setItems: (state, action: PayloadAction<AdvicesState>) => {
       return {
         ...state,
         advices: action.payload

@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Formik } from "formik";
 import * as yup from "yup";
-import useReactRouter from "use-react-router";
+
 
 import { setLoggedUser, loggedUser } from "./loginSlice";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("Email is not valid").required("Email is required"),
@@ -15,11 +16,11 @@ const validationSchema = yup.object().shape({
 export const Login: React.FC = () => {
   const dispatch = useDispatch();
   const loggedUserSelector = useSelector(loggedUser);
-  const { history } = useReactRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loggedUserSelector.role !== "" && history.push("/");
-    loggedUserSelector.role == "" && history.push("/login");
+    loggedUserSelector.role !== "" && navigate("/");
+    loggedUserSelector.role == "" && navigate("/login");
   }, []);
 
   const initialValues = {
@@ -28,9 +29,6 @@ export const Login: React.FC = () => {
     password: "",
   };
 
-  const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
-  const processProd = process.env.USERS_ROUTE_PRODUCTION;
-
   let usersCollection = "datas";
 
   return (
@@ -38,6 +36,7 @@ export const Login: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
+          setSubmitting(false);
           axios
             .get(`/api/${usersCollection}`, {
               params: {
@@ -47,7 +46,7 @@ export const Login: React.FC = () => {
             })
             .then((res) => {
               if (res.data[0]) {
-                history.push("/");
+                navigate("/");
                 dispatch(
                   setLoggedUser({
                     id: res.data[0].id,
@@ -68,13 +67,10 @@ export const Login: React.FC = () => {
             values,
             touched,
             errors,
-            dirty,
-            isSubmitting,
             handleChange,
             handleBlur,
-            handleSubmit,
-            handleReset,
-          } = props;
+            handleSubmit
+          }: any = props;
           return (
             <form onSubmit={handleSubmit}>
               <label htmlFor="email" style={{ display: "block" }}>

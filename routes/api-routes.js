@@ -29,53 +29,54 @@ module.exports = function (app) {
         res.json(data);
       })
       .catch(function (err) {
+        console.log(123, err);
         res.json(err);
       });
 
-    var transporter = nodemailer.createTransport({
-      type: "SMTP",
-      host: "smtp.gmail.com",
-      auth: {
-        user: "n.cuekisa@gmail.com",
-        pass: process.env.EMAIL_SEND_PASSWORD,
-      },
-    });
+    // var transporter = nodemailer.createTransport({
+    //   type: "SMTP",
+    //   host: "smtp.gmail.com",
+    //   auth: {
+    //     user: "n.cuekisa@gmail.com",
+    //     pass: process.env.EMAIL_SEND_PASSWORD,
+    //   },
+    // });
 
-    var mailOptions = {
-      from: "n.cuekisa@gmail.com",
-      to: [
-        { address: req.body.email },
-        { name: "Receiver", address: "cuekisa@yahoo.com" },
-      ],
-      subject: "Konfirmacija - Good Choice",
-      html: `<h3 style="color:red">Dobrodošli na Good Choice!</h3> <br>
-      Zahvaljujemo se na registraciji.<br><br>
-      <b>Ulogujte se i uživajte, nastavite ka sajtu klikom na <a href="${link}">LINK</a>
-      <hr>
-      `,
-    };
+    // var mailOptions = {
+    //   from: "n.cuekisa@gmail.com",
+    //   to: [
+    //     { address: req.body.email },
+    //     { name: "Receiver", address: "cuekisa@yahoo.com" },
+    //   ],
+    //   subject: "Konfirmacija - Good Choice",
+    //   html: `<h3 style="color:red">Dobrodošli na Good Choice!</h3> <br>
+    //   Zahvaljujemo se na registraciji.<br><br>
+    //   <b>Ulogujte se i uživajte, nastavite ka sajtu klikom na <a href="${link}">LINK</a>
+    //   <hr>
+    //   `,
+    // };
 
-    transporter
-      .sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      })
-      .then(() => console.log("Email sent successfully."))
-      .catch((error) => console.log(error));
+    // transporter
+    //   .sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log("Email sent: " + info.response);
+    //     }
+    //   })
+    //   .then(() => console.log("Email sent successfully."))
+    //   .catch((error) => console.log(error));
 
-    transporter
-      .sendMail(mailOptions2, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-        }
-      })
-      .then(() => console.log("Email sent successfully."))
-      .catch((error) => console.log(error));
+    // transporter
+    //   .sendMail(mailOptions2, function (error, info) {
+    //     if (error) {
+    //       console.log(error);
+    //     } else {
+    //       console.log("Email sent: " + info.response);
+    //     }
+    //   })
+    //   .then(() => console.log("Email sent successfully."))
+    //   .catch((error) => console.log(error));
   });
 
   app.put(`/api/${usersCollection}`, (req, res) => {
@@ -86,13 +87,17 @@ module.exports = function (app) {
     });
   });
 
-  app.put("/api/changeImage", (req, res) => {
-    const { email, update } = req.body;
-    Data.findOneAndUpdate(email, update, (err) => {
-      if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true });
-    });
-  });
+  app.put("/api/changeImage", async (req, res) => {
+  const { email, update } = req.body;
+
+  try {
+    await Data.findOneAndUpdate({ email: email }, update);
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: false, error: err.message });
+  }
+});
+
 
   app.delete(`/api/${usersCollection}`, (req, res) => {
     const { email } = req.body;

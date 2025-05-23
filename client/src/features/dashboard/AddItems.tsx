@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import useReactRouter from "use-react-router";
+
 
 import { addItems } from "./dashboardSlice";
 import { loggedUser } from "../login/loginSlice";
-import { spawn } from "child_process";
+import { useNavigate } from "react-router-dom";
 
 interface IAdvice {
   id: number;
@@ -15,18 +15,14 @@ interface IAdvice {
   likes: string[];
 }
 
-type Props = {
-  saveAdvice: (advice: IAdvice) => void;
-};
-
-export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
+export const AddItems: any = () => {
   const dispatch = useDispatch();
   const loggedUserSelector = useSelector(loggedUser);
 
-  const { history } = useReactRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    loggedUserSelector.role === "USER_BEGINNER" && history.push("/");
+    loggedUserSelector.role === "USER_BEGINNER" && navigate("/");
   }, []);
 
   const [addCategoriesInput, setAddCategoriesInput] = useState<string>("");
@@ -68,7 +64,7 @@ export const AddItems: React.FC<Props> = ({ saveAdvice }) => {
       category: filteredCat.join(",").trim(),
       creator: `${loggedUserSelector.email}/n${loggedUserSelector.firstName}/n${loggedUserSelector.image}`,
     });
-    history.push("/");
+    navigate("/");
   };
 
   const addCategoryToState = (e: React.FormEvent) => {

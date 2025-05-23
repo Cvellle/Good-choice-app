@@ -5,7 +5,7 @@ const GridFsStorage = require("multer-gridfs-storage");
 const Grid = require("gridfs-stream");
 var multer = require("multer");
 
-const mongoURI = process.env.MONGODB_URI;
+const mongoURI = process.env.MONGO_URI;
 const conn = mongoose.createConnection(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -48,13 +48,17 @@ module.exports = function (app) {
   const link = process.env.APP_URL_DEVELOPMENT || "http://localhost:3000";
 
   app.get("/api/advices", (req, res) => {
-    Advices.aggregate([{ $match: req.query }])
-      .then(function (data) {
-        res.send(data);
-      })
-      .catch(function (err) {
-        res.json(err);
-      });
+    try {
+      Advices.aggregate([{ $match: req.query }])
+        .then(function (data) {
+          res.send(data);
+        })
+        .catch(function (err) {
+          res.json(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   app.post("/api/advices", function (req, res) {
@@ -67,20 +71,24 @@ module.exports = function (app) {
       });
   });
 
-  app.put("/api/advices", (req, res) => {
+  app.put("/api/advices", async (req, res) => {
     const { id, update } = req.body;
-    Advices.findOneAndUpdate(id, update, (err) => {
-      if (err) return res.json({ success: false, error: err });
-      return res.json({ success: true });
+
+    const updated = await Advices.findOneAndUpdate({ _id: id }, update, {
+      new: true,
     });
+    res.json({ success: true, data: updated });
   });
 
-  app.delete("/api/advices", (req, res) => {
+  app.delete("/api/advices", async (req, res) => {
     const { id } = req.body;
-    Advices.findOneAndDelete(id, (err) => {
-      if (err) return res.send(err);
-      return res.json({ success: true });
-    });
+
+    try {
+      await Advices.findOneAndDelete({ _id: id });
+      res.json({ success: true });
+    } catch (err) {
+      res.json({ success: false, error: err.message });
+    }
   });
 
   // UPLOAD IMAGES
@@ -89,11 +97,11 @@ module.exports = function (app) {
   let jpg = "jpg";
   let gif = "gif";
 
-  app.post("/upload", upload.single("files"), (req, res, err) => {
+  app.post("/api/upload", upload.single("files"), (req, res, err) => {
     res.send(req.files);
   });
 
-  app.get("/profileImage/:filename", (req, res) => {
+  app.get("/api/profileImage/:filename", (req, res) => {
     (req.params.filename.includes(png) ||
       req.params.filename.includes(jpg) ||
       req.params.filename.includes(gif)) &&

@@ -1,5 +1,5 @@
 @function rem($length, $fontSize: 16) {
   $result: 1;
-  $result: ($length / $fontSize) * 1rem;
+  $result: ($length / $fontSize) * 1rem !default;;
   @return $result;
 }

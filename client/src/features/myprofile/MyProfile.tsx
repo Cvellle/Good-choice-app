@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import useReactRouter from "use-react-router";
+
 import axios from "axios";
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -14,6 +14,7 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useTheme } from "@material-ui/core/styles";
 
 import { setLoggedUser, loggedUser } from "../login/loginSlice";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("First name is required"),
@@ -24,7 +25,7 @@ const validationSchema = yup.object().shape({
 
 export const MyProfile: React.FC = () => {
   const dispatch = useDispatch();
-  const { history } = useReactRouter();
+  const navigate = useNavigate();
   const loggedUserSelector = useSelector(loggedUser);
 
   const [open, setOpen] = React.useState(false);
@@ -61,11 +62,8 @@ export const MyProfile: React.FC = () => {
   };
 
   useEffect(() => {
-    loggedUserSelector.role == "" && history.push("/signup");
+    loggedUserSelector.role == "" && navigate("/signup");
   }, []);
-
-  const processDev = process.env.USERS_ROUTE_DEVELOPMENT;
-  const processProd = process.env.USERS_ROUTE_PRODUCTION;
 
   let usersCollection = "datas";
 
@@ -107,6 +105,7 @@ export const MyProfile: React.FC = () => {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }) => {
+          setSubmitting(false);
           axios
             .get(`/api/${usersCollection}`, {
               params: {
@@ -127,7 +126,7 @@ export const MyProfile: React.FC = () => {
                     },
                   })
                   .then(() => {
-                    history.push("/signup");
+                    navigate("/signup");
                   })
                   .then(() => {
                     dispatch(
@@ -151,13 +150,11 @@ export const MyProfile: React.FC = () => {
             values,
             touched,
             errors,
-            dirty,
             isSubmitting,
             handleChange,
             handleBlur,
             handleSubmit,
-            handleReset,
-          } = props;
+          }: any = props;
           return (
             <form onSubmit={handleSubmit}>
               <label

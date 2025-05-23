@@ -1,44 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { setLoggedUser, loggedUser } from "../login/loginSlice";
 import "../../App.css";
 import noImagePicture from "../../images/noimage.jpg";
+import { Box } from "@mui/material";
 
 export const Sidebar: React.FC = () => {
   const dispatch = useDispatch();
   const loggedUserSelector = useSelector(loggedUser);
 
   const [image, setImage] = useState<any>();
-  const [loadingSpinner, setLoadingSpinner] = useState<boolean>(false);
   const [profileImageUrl, setProfileImageUrl] = useState<string>(
     loggedUserSelector.image
   );
   const [loaded, setLoaded] = useState<boolean>(false);
 
-  useEffect(() => {
-    profileImageUrl && setLoadingSpinner(false);
-  }, [profileImageUrl]);
-
   const onSubmitImage = async (e: React.FormEvent) => {
-    setLoadingSpinner(true);
     e.preventDefault();
     let data = new FormData();
     data.append("files", image[0]);
 
-    const config = {
+    const config: any = {
       headers: {
         "content-type": "multipart/form-data",
       },
     };
 
-    fetch("/upload", {
+    fetch("/api/upload", {
       method: "POST",
       body: data,
+      ...config
     })
       .then(() => {
         dispatch(

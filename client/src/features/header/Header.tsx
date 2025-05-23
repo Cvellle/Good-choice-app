@@ -1,15 +1,16 @@
-import React, { Component, MouseEventHandler } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import HomeIcon from "@material-ui/icons/Home";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
-import { debounce } from "lodash";
+import HomeIcon from "@mui/icons-material/Home";
+import { makeStyles, createStyles} from "@material-ui/core/styles";
+
+
 
 import { loggedUser, logOutUser } from "../login/loginSlice";
+import { Box, debounce } from "@mui/material";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 0,
@@ -24,7 +25,7 @@ export default function Header() {
 
   const [showHeader, setShowHeader] = React.useState(false);
 
-  const didScrollPage = (e: any) => {
+  const didScrollPage = () => {
     const headerStickyOffset = 200;
     if (window.scrollY > headerStickyOffset) {
       setShowHeader(true);

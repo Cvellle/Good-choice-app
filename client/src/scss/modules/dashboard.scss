@@ -32,6 +32,7 @@
     height: 38px;
     border-radius: 0.5vw;
     font-size: 16px;
+    width: 200px;
   }
 
   &:active {
@@ -40,8 +41,8 @@
   }
 }
 
-.filter-advices .filter-input {
-  background: rgba(210, 194, 223, 0.801) !important;
+.filterAdvices .filter-input {
+  background: rgba(157, 126, 182, 0.801) !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,7 +51,6 @@
   transition: 0.3s;
   opacity: 0.6;
   width: 100%;
-  border: none;
   padding: 0 0 0 4vw;
   width: calc(100%);
   box-sizing: border-box;
@@ -62,11 +62,11 @@
   @include desktop {
     padding: 0 0 0 1vw;
     border-radius: 0.5vw;
-    border: none;
     height: 38px;
     border-radius: 0.5vw;
     font-size: 16px;
     width: 200px;
+    border: 1px solid #000 !important;
   }
 
   &:focus {
@@ -131,6 +131,7 @@
     @include desktop {
       height: unset;
       padding: 1vw;
+      max-width: 50%;
       margin-bottom: 2vw;
     }
 

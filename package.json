@@ -2,15 +2,15 @@
   "name": "Good-choice",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server.ts",
   "engines": {
-    "node": "14.17.0"
+    "node": "20.19.1"
   },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.js",
+    "start:prod": "node server.ts",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run start",
+    "client": "cd client && npm run dev",
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
@@ -19,29 +19,35 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0",
+    "concurrently": "^5.3.0",
     "nodemon": "^2.0.2"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.12.11",
-    "@material-ui/core": "^4.11.2",
+    "@babel/preset-env": "^7.27.2",
+    "@material-ui/core": "^4.12.4",
+    "@types/express": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/socket.io": "^3.0.1",
     "axios": "^0.16.2",
     "bcrypt": "^5.0.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.3",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-fileupload": "^1.2.1",
-    "formidable": "^1.2.2",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "express-fileupload": "^1.5.1",
+    "formidable": "^1.2.6",
     "gridfs-stream": "^1.1.1",
     "if-env": "^1.0.4",
     "install": "^0.13.0",
-    "mongoose": "^5.9.7",
-    "morgan": "^1.9.1",
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "multer-gridfs-storage": "^4.2.0",
-    "nodemailer": "^6.4.17",
-    "npm": "^6.14.11"
+    "nodemailer": "^6.10.1",
+    "npm": "^6.14.11",
+    "save-dev": "^0.0.1-security",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
   }
 }
