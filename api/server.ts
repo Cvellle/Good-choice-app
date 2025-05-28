@@ -32,10 +32,10 @@ require("./routes/api-routes")(app);
 require("./routes/advices-routes")(app);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static("client/dist"));
 
   app.get("*", (req: any, res: any) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
   });
 }
 
