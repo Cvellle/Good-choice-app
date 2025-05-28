@@ -1,14 +1,9 @@
 {
     "version": 2,
-    "builds": [],
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "buildCommand": null,
-    "installCommand": null,
-    "outputDirectory": "api/client",
     "rewrites": [
         {
             "source": "/(.*)",
-            "destination": "/api/client/$1"
+            "destination": "/api"
         }
     ],
     "headers": [
