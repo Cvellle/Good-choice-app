@@ -15,7 +15,7 @@ import { changeRole, loggedUser } from "../login/loginSlice";
 import "../../AppCss.css";
 import { useNavigate } from "react-router-dom";
 import {
-  Grid,
+  
   Paper,
   Dialog,
   DialogTitle,
@@ -24,7 +24,7 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { IconButton, Input } from "@material-ui/core";
+import { Input, Grid } from "@material-ui/core";
 
 interface IAdvice {
   id: number;
