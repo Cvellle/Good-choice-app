@@ -1,16 +1,11 @@
 {
     "version": 2,
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/api"
-        }
-    ],
     "builds": [],
+    "outputDirectory": "api/client/dist",
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/api/client/dist/$1"
+            "dest": "/$1"
         }
     ],
     "headers": [
