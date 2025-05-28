@@ -6,15 +6,6 @@
             "destination": "/api"
         }
     ],
-    "buildCommand": null,
-    "installCommand": null,
-    "outputDirectory": "api/client",
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/api/client/$1"
-        }
-    ],
     "headers": [
         {
             "source": "/api/(.*)",
