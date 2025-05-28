@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI as string, {
 
 // Routes
 app.use(cors());
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use('/uploads', express.static('uploads'));
 
 require("./routes/api-routes")(app);
