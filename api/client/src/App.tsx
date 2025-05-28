@@ -12,7 +12,7 @@ import { MyProfile } from "./features/myprofile/MyProfile";
 import { Sidebar } from "./features/sidebar/Sidebar";
 import PrivateRoute from "./features/login/privateroute/privateroute";
 import { loggedUser } from "./features/login/loginSlice";
-import "./App.css";
+import "./AppCss.css";
 import chatImage from "./images/chat.png";
 import { AddItems } from "./features/dashboard/AddItems";
 

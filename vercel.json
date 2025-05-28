@@ -1,12 +1,6 @@
 {
     "version": 2,
     "builds": [],
-    "rewrites": [
-        {
-            "source": "/(.*)",
-            "destination": "/api"
-        }
-    ],
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "buildCommand": null,
     "installCommand": null,

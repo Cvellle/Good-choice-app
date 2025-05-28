@@ -6,7 +6,7 @@ import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { setLoggedUser, loggedUser } from "../login/loginSlice";
-import "../../App.css";
+import "../../AppCss.css";
 import noImagePicture from "../../images/noimage.jpg";
 import { Box } from "@mui/material";
 

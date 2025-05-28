@@ -12,7 +12,7 @@ import {
   likeAction,
 } from "./dashboardSlice";
 import { changeRole, loggedUser } from "../login/loginSlice";
-import "../../App.css";
+import "../../AppCss.css";
 import { useNavigate } from "react-router-dom";
 import {
   Grid,

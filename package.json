@@ -12,7 +12,9 @@
     "start:dev": "concurrently \"nodemon --ignore 'api/client/*'\" \"npm run api/client\"",
     "client": "cd api/client && npm run dev",
     "seed": "node scripts/seedDB.js",
-    "install": "cd api/client && npm install"
+    "install": "cd api/client && npm install",
+    "build": "cd api/client && npm run build",
+    "heroku-postbuild": "cd api/client && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
