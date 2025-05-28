@@ -8,13 +8,13 @@
   },
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
-    "start:prod": "node server.ts",
-    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run dev",
+    "start:prod": "api/node server.ts",
+    "start:dev": "concurrently \"nodemon --ignore 'api/client/*'\" \"npm run api/client\"",
+    "client": "cd api/client && npm run dev",
     "seed": "node scripts/seedDB.js",
-    "install": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "install": "cd api/client && npm install",
+    "build": "cd api/client && npm run build",
+    "heroku-postbuild": "cd api/client && npm install && npm run build"
   },
   "author": "",
   "license": "ISC",
