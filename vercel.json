@@ -6,6 +6,13 @@
             "destination": "/api"
         }
     ],
+    "builds": [],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "/api/client/dist/$1"
+        }
+    ],
     "headers": [
         {
             "source": "/api/(.*)",
