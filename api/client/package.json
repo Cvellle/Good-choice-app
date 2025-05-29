@@ -25,6 +25,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.0",
     "redux-persist": "^6.0.0",
+    "vite-plugin-static-copy": "^3.0.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {

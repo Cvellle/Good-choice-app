@@ -1,15 +1,11 @@
 {
-    "version": 2,
-    "builds": [],
-    "outputDirectory": "api/client/dist",
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/$1"
-        }
-    ],
-    "build": {
-        "outDir": "dist",
-        "assetsDir": "assets"
+  "version": 2,
+  "builds": [],
+  "outputDirectory": "api/client/dist",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
+  ]
 }
